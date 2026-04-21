@@ -9,10 +9,11 @@
   },
   "dependencies": {
     "csv-parse": "^5.4.0",
-    "firebase-admin": "^11.8.0",
+    "firebase-admin": "^11.11.1",
     "geofire-common": "^6.0.0",
     "leaflet": "^1.9.4",
     "leaflet.heat": "^0.2.0",
+    "protobufjs": "^7.5.5",
     "react-leaflet": "^4.2.1"
   },
   "devDependencies": {
