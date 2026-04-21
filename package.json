@@ -1,0 +1,20 @@
+{
+  "name": "relieflink-root",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "ingest": "ts-node scripts/csv_ingest.ts",
+    "deploy:rules": "firebase deploy --only firestore:rules",
+    "deploy:functions": "firebase deploy --only functions"
+  },
+  "dependencies": {
+    "csv-parse": "^5.4.0",
+    "firebase-admin": "^11.8.0",
+    "geofire-common": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.16.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  }
+}

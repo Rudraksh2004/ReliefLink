@@ -14,7 +14,9 @@ interface CSVRow {
   lng: string;
   peopleAffected: string;
   severity: string;
-  resourceScarcity: string;
+  resourceShortage: string;
+  deadlineUrgency: string;
+  locationPriority: string;
 }
 
 async function ingestCSV(filePath: string) {
@@ -35,6 +37,12 @@ async function ingestCSV(filePath: string) {
     chunk.forEach((row) => {
       const lat = parseFloat(row.lat);
       const lng = parseFloat(row.lng);
+      
+      if (isNaN(lat) || isNaN(lng)) {
+        console.warn(`Skipping row with invalid coordinates: ${row.title}`);
+        return;
+      }
+
       const hash = geohashForLocation([lat, lng]);
 
       const docRef = db.collection('community_needs').doc();
