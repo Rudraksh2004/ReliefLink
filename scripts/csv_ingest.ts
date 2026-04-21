@@ -43,8 +43,10 @@ async function ingestCSV(filePath: string) {
         category: row.category,
         location: { lat, lng, geohash: hash },
         peopleAffected: parseInt(row.peopleAffected) || 0,
-        severityLevel: parseInt(row.severity) || 1,
-        resourceScarcity: parseInt(row.resourceScarcity) || 1,
+        severity: parseInt(row.severity) || 1,
+        resourceShortage: parseInt(row.resourceShortage) || 1,
+        deadlineUrgency: parseInt(row.deadlineUrgency) || 1,
+        locationPriority: parseInt(row.locationPriority) || 1,
         status: 'pending',
         createdAt: admin.firestore.FieldValue.serverTimestamp(),
         hoursWaiting: 0

@@ -1,5 +1,5 @@
 import { useAuth } from '../hooks/useAuth';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/router'; // Use 'next/navigation' if using Next.js 13+ App Router
 import { useEffect } from 'react';
 
 /**
