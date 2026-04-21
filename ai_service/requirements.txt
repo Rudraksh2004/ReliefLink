@@ -6,3 +6,6 @@ pandas
 numpy
 python-dotenv
 google-cloud-firestore
+sentence-transformers
+scikit-learn
+numpy
