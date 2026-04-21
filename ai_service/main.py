@@ -29,6 +29,16 @@ matching_model = joblib.load(os.path.join(MODEL_PATH, "matching_model.pkl"))
 # 3. Load Semantic Model
 embedder = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 
+def calculate_semantic_score(source_skills: List[str], target_skills: List[str]) -> float:
+    if not source_skills or not target_skills:
+        return 0.0
+    # Generate embeddings (Simplified: Average of skill embeddings)
+    source_emb = embedder.encode([" ".join(source_skills)])
+    target_emb = embedder.encode([" ".join(target_skills)])
+    # Compute Cosine Similarity
+    similarity = cosine_similarity(source_emb, target_emb)
+    return float(similarity[0][0])
+
 # --------------------------
 # STEP 3: Explainable AI Logic
 # --------------------------
@@ -148,6 +158,55 @@ async def explainable_match(task_id: str, payload: Dict = Body(...)):
     return {"task_id": task_id, "best_matches": best_matches}
 
 # --- Keep existing helper code ---
+
+# --------------------------
+# 6) Reverse Matching: Tasks for a Volunteer
+# --------------------------
+@app.post("/match-task/{volunteer_id}")
+async def match_task_for_volunteer(volunteer_id: str, limit: int = 5):
+    v_doc = db.collection("volunteers").document(volunteer_id).get()
+    if not v_doc.exists:
+        raise HTTPException(status_code=404, detail="Volunteer not found")
+    
+    v_data = v_doc.to_dict()
+    v_skills = v_data.get("skills", [])
+    v_loc = v_data.get("location", {})
+
+    # Fetch recently created/open tasks
+    tasks = db.collection("tasks").where("status", "==", "open").limit(20).stream()
+    
+    task_recommendations = []
+    for t in tasks:
+        t_data = t.to_dict()
+        t_loc = t_data.get("location", {})
+        req_skills = t_data.get("requiredSkills", [])
+        
+        # Calculate Distance
+        dist_km = 99
+        if v_loc and t_loc:
+            dist_km = distanceBetween(
+                 [v_loc.get("lat", 0), v_loc.get("lng", 0)],
+                 [t_loc.get("lat", 0), t_loc.get("lng", 0)]
+            )
+
+        # 1. Semantic Score
+        sem_score = calculate_semantic_score(v_skills, req_skills)
+        
+        # 2. XAI Explanation (Reuse logic)
+        scores_for_xai = {"semantic": sem_score, "distance_km": dist_km}
+        explanation = generate_match_explanation(v_data, t_data, scores_for_xai)
+
+        task_recommendations.append({
+            "task_id": t.id,
+            "title": t_data.get("title", "Unnamed Task"),
+            "match_score": round(sem_score * 100, 2),
+            "semantic_score": round(sem_score, 4),
+            "distance_km": round(dist_km, 2),
+            "explanation": explanation
+        })
+
+    best_tasks = sorted(task_recommendations, key=lambda x: x["match_score"], reverse=True)[:limit]
+    return {"volunteer_id": volunteer_id, "best_tasks": best_tasks}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

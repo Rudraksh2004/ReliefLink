@@ -1,25 +1,86 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
-import { distanceBetween } from "geofire-common";
+import axios from "axios";
 
 admin.initializeApp();
 const db = admin.firestore();
 
+// API Base URL (Change to your deployed FastAPI URL or use ngrok for local testing)
+const AI_SERVICE_URL = "http://localhost:8000"; 
+
 // ----------------------------------------------------------------------------
-// STEP 2: Needs Analytics Trigger
+// 1. AI Auto-Assignment Triggers
 // ----------------------------------------------------------------------------
+
+export const triggerAutoAssignmentOnTask = functions.firestore
+  .document("tasks/{taskId}")
+  .onCreate(async (snapshot, context) => {
+    const taskId = context.params.taskId;
+    try {
+      const response = await axios.post(`${AI_SERVICE_URL}/match-volunteer/${taskId}`);
+      const bestMatches = response.data.best_matches || [];
+      const batch = db.batch();
+      bestMatches.forEach((match: any) => {
+        const recRef = db.collection("recommendations").doc();
+        batch.set(recRef, {
+          task_id: taskId,
+          volunteer_id: match.volunteer_id,
+          match_score: match.match_score,
+          semantic_score: match.semantic_score,
+          distance_score: match.distance_km,
+          explanation: match.explanation,
+          created_at: admin.firestore.FieldValue.serverTimestamp(),
+          type: "TASK_TO_VOLUNTEER"
+        });
+      });
+      return batch.commit();
+    } catch (error) {
+      console.error("AI Service Error (Task Match):", error);
+      return null;
+    }
+  });
+
+export const triggerAutoAssignmentOnVolunteer = functions.firestore
+  .document("volunteers/{volunteerId}")
+  .onCreate(async (snapshot, context) => {
+    const volunteerId = context.params.volunteerId;
+    try {
+      const response = await axios.post(`${AI_SERVICE_URL}/match-task/${volunteerId}`);
+      const bestTasks = response.data.best_tasks || [];
+      const batch = db.batch();
+      bestTasks.forEach((task: any) => {
+        const recRef = db.collection("recommendations").doc();
+        batch.set(recRef, {
+          task_id: task.task_id,
+          volunteer_id: volunteerId,
+          match_score: task.match_score,
+          semantic_score: task.semantic_score,
+          distance_score: task.distance_km,
+          explanation: task.explanation,
+          created_at: admin.firestore.FieldValue.serverTimestamp(),
+          type: "VOLUNTEER_TO_TASK"
+        });
+      });
+      return batch.commit();
+    } catch (error) {
+      console.error("AI Service Error (Volunteer Match):", error);
+      return null;
+    }
+  });
+
+// ----------------------------------------------------------------------------
+// 2. Analytics Aggregation Triggers
+// ----------------------------------------------------------------------------
+
 export const onNeedWriteAnalytics = functions.firestore
   .document("community_needs/{needId}")
   .onWrite(async (change, context) => {
     const before = change.before.data();
     const after = change.after.data();
     const date = new Date().toISOString().split('T')[0];
-
-    // References
     const dailyRef = db.collection("analytics_cache").doc(`daily_stats_${date}`);
     const distRef = db.collection("analytics_cache").doc("priority_distribution");
-    
-    // 1. Handle Creation
+
     if (!before && after) {
       const batch = db.batch();
       batch.set(dailyRef, {
@@ -28,12 +89,9 @@ export const onNeedWriteAnalytics = functions.firestore
       }, { merge: true });
 
       if (after.priority_level) {
-        batch.set(distRef, {
-          [after.priority_level]: admin.firestore.FieldValue.increment(1)
-        }, { merge: true });
+        batch.set(distRef, { [after.priority_level]: admin.firestore.FieldValue.increment(1) }, { merge: true });
       }
 
-      // Handle Region Aggregation for Heatmap
       if (after.location && after.location.geohash) {
         const regionPrefix = after.location.geohash.substring(0, 5);
         const regionRef = db.collection("analytics_cache").doc(`region_${regionPrefix}`);
@@ -49,78 +107,19 @@ export const onNeedWriteAnalytics = functions.firestore
       return batch.commit();
     }
 
-    // 2. Handle Deletion
-    if (before && !after) {
-       // Logic to decrement if needed (skipped for brevity unless requested)
-       return null;
-    }
-
-    // 3. Handle Updates (Specifically priority changes)
     if (before && after && before.priority_level !== after.priority_level) {
       const batch = db.batch();
-      if (before.priority_level) {
-        batch.set(distRef, { [before.priority_level]: admin.firestore.FieldValue.increment(-1) }, { merge: true });
-      }
-      if (after.priority_level) {
-        batch.set(distRef, { [after.priority_level]: admin.firestore.FieldValue.increment(1) }, { merge: true });
-      }
+      if (before.priority_level) batch.set(distRef, { [before.priority_level]: admin.firestore.FieldValue.increment(-1) }, { merge: true });
+      if (after.priority_level) batch.set(distRef, { [after.priority_level]: admin.firestore.FieldValue.increment(1) }, { merge: true });
       return batch.commit();
     }
-
     return null;
   });
 
 // ----------------------------------------------------------------------------
-// STEP 3: Volunteer Matching Analytics Trigger
+// 3. AI Urgency Scoring Trigger
 // ----------------------------------------------------------------------------
-export const onMatchCreatedAnalytics = functions.firestore
-  .document("matches/{matchId}")
-  .onCreate(async (snapshot, context) => {
-    const data = snapshot.data();
-    if (!data || !data.volunteer_id) return null;
 
-    const vMetricRef = db.collection("analytics_cache").doc(`volunteer_${data.volunteer_id}`);
-
-    return vMetricRef.set({
-      total_matches: admin.firestore.FieldValue.increment(1),
-      last_match_score: data.match_score,
-      lastUpdated: admin.firestore.FieldValue.serverTimestamp()
-    }, { merge: true });
-  });
-
-// ----------------------------------------------------------------------------
-// STEP 4: Task Completion Metrics Trigger
-// ----------------------------------------------------------------------------
-export const onTaskCompletedAnalytics = functions.firestore
-  .document("tasks/{taskId}")
-  .onUpdate(async (change, context) => {
-    const before = change.before.data();
-    const after = change.after.data();
-
-    if (before.status !== "completed" && after.status === "completed") {
-      const date = new Date().toISOString().split('T')[0];
-      const taskMetricRef = db.collection("analytics_cache").doc(`task_metrics_${date}`);
-
-      // Calculate time taken if timestamps exist
-      let completionTimeHrs = 0;
-      if (after.createdAt && after.completedAt) {
-        const start = after.createdAt.toDate().getTime();
-        const end = after.completedAt.toDate().getTime();
-        completionTimeHrs = (end - start) / (1000 * 60 * 60);
-      }
-
-      return taskMetricRef.set({
-        completed_today: admin.firestore.FieldValue.increment(1),
-        total_completion_time: admin.firestore.FieldValue.increment(completionTimeHrs),
-        lastUpdated: admin.firestore.FieldValue.serverTimestamp()
-      }, { merge: true });
-    }
-
-    return null;
-  });
-
-// (Existing Logic for Scoring and Matching should remain or be merged)
-// Implementation of AI Urgency (Triggered on create)
 export const calculateUrgencyScoring = functions.firestore
   .document("community_needs/{needId}")
   .onCreate(async (snapshot) => {
