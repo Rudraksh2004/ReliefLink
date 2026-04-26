@@ -28,9 +28,9 @@ export const StatCard = ({ title, value, description, icon, trend, color = "blue
   };
 
   return (
-    <div className={`group relative overflow-hidden p-6 rounded-3xl bg-gradient-to-br ${colorMap[color]} bg-white dark:bg-neutral-900 shadow-sm border transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/5 hover:-translate-y-1`}>
+    <div className={`group relative overflow-hidden p-6 rounded-3xl bg-gradient-to-br ${colorMap[color]} bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl shadow-sm border transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/5 hover:-translate-y-1`}>
       <div className="flex justify-between items-start mb-4">
-        <div className={`p-3 rounded-2xl ${iconBgMap[color]} transition-transform duration-300 group-hover:scale-110`}>
+        <div className={`p-3 rounded-2xl ${iconBgMap[color]} backdrop-blur-md transition-transform duration-300 group-hover:scale-110`}>
           {icon}
         </div>
         {trend && (
