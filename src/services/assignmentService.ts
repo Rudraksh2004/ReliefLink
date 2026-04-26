@@ -1,22 +1,29 @@
-import { addDocument, updateDocument } from "@/lib/firestore";
+import { 
+  addDocument, 
+  getDocument, 
+  getCollection, 
+  updateDocument 
+} from "@/lib/firestore";
 import { Assignment } from "@/types/assignment";
+import { serverTimestamp, QueryConstraint } from "firebase/firestore";
 
 const COLLECTION = "assignments";
 
-export const createAssignment = async (needId: string, volunteerId: string, confidence: number) => {
+export const createAssignment = async (assignmentData: Omit<Assignment, "id" | "createdAt">) => {
   return await addDocument(COLLECTION, {
-    needId,
-    volunteerId,
-    status: "Assigned",
-    matchConfidence: confidence,
-    assignedAt: new Date().toISOString(),
+    ...assignmentData,
+    createdAt: serverTimestamp(),
   });
 };
 
-export const updateAssignmentStatus = async (id: string, status: Assignment["status"]) => {
-  const updateData: any = { status };
-  if (status === "Completed") {
-    updateData.completedAt = new Date().toISOString();
-  }
-  return await updateDocument(COLLECTION, id, updateData);
+export const getAssignmentById = async (id: string) => {
+  return await getDocument(COLLECTION, id) as Assignment | null;
+};
+
+export const getAllAssignments = async (constraints: QueryConstraint[] = []) => {
+  return await getCollection(COLLECTION, constraints) as Assignment[];
+};
+
+export const updateAssignment = async (id: string, data: Partial<Assignment>) => {
+  return await updateDocument(COLLECTION, id, data);
 };

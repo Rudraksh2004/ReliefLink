@@ -1,23 +1,29 @@
-import { addDocument, updateDocument, getCollection } from "@/lib/firestore";
+import { 
+  addDocument, 
+  getDocument, 
+  getCollection, 
+  updateDocument 
+} from "@/lib/firestore";
 import { Volunteer } from "@/types/volunteer";
+import { serverTimestamp, QueryConstraint } from "firebase/firestore";
 
 const COLLECTION = "volunteers";
 
-export const registerVolunteer = async (volunteerData: Omit<Volunteer, "id" | "lastActive">) => {
+export const createVolunteer = async (volunteerData: Omit<Volunteer, "id" | "createdAt">) => {
   return await addDocument(COLLECTION, {
     ...volunteerData,
-    availabilityStatus: "Available",
-    lastActive: new Date().toISOString(),
+    createdAt: serverTimestamp(),
   });
 };
 
-export const fetchAvailableVolunteers = async () => {
-  return await getCollection(COLLECTION) as Volunteer[];
+export const getVolunteerById = async (id: string) => {
+  return await getDocument(COLLECTION, id) as Volunteer | null;
 };
 
-export const updateVolunteerAvailability = async (id: string, status: Volunteer["availabilityStatus"]) => {
-  return await updateDocument(COLLECTION, id, { 
-    availabilityStatus: status,
-    lastActive: new Date().toISOString(),
-  });
+export const getAllVolunteers = async (constraints: QueryConstraint[] = []) => {
+  return await getCollection(COLLECTION, constraints) as Volunteer[];
+};
+
+export const updateVolunteer = async (id: string, data: Partial<Volunteer>) => {
+  return await updateDocument(COLLECTION, id, data);
 };

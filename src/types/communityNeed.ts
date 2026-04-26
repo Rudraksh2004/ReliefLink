@@ -1,18 +1,31 @@
+import { Timestamp } from "firebase/firestore";
+
+export enum CommunityNeedCategory {
+  MEDICAL = "medical",
+  FOOD = "food",
+  SHELTER = "shelter",
+  RESCUE = "rescue",
+  LOGISTICS = "logistics",
+  OTHER = "other",
+}
+
+export enum CommunityNeedStatus {
+  PENDING = "pending",
+  MATCHED = "matched",
+  RESOLVED = "resolved",
+}
+
 export interface CommunityNeed {
-  id: string;
+  id?: string;
   title: string;
-  category: "Medical" | "Food" | "Water" | "Shelter" | "Logistics" | "Rescue";
+  description: string;
+  category: CommunityNeedCategory;
   peopleAffected: number;
-  severityLevel: 1 | 2 | 3 | 4 | 5; // 1: Low, 5: Critical
-  resourceScarcity: number; // 0 to 1
-  hoursWaiting: number;
-  location: {
-    lat: number;
-    lng: number;
-    address?: string;
-  };
+  locationName: string;
+  latitude: number;
+  longitude: number;
   urgencyScore: number;
-  status: "Pending" | "In-Progress" | "Resolved";
-  createdAt: string;
-  updatedAt: string;
+  status: CommunityNeedStatus;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
 }

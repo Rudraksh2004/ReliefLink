@@ -13,17 +13,14 @@ import {
 import { db } from "./firebase";
 
 /**
- * Reusable helper to add a document to a collection
+ * Reusable helper to add a document to a collection.
+ * The data object should include necessary timestamps from the service layer.
  */
 export const addDocument = async <T extends WithFieldValue<DocumentData>>(
   collectionName: string, 
   data: T
 ) => {
-  return await addDoc(collection(db, collectionName), {
-    ...data,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-  });
+  return await addDoc(collection(db, collectionName), data);
 };
 
 /**
@@ -54,7 +51,8 @@ export const getCollection = async (
 };
 
 /**
- * Reusable helper to update a document
+ * Reusable helper to update a document.
+ * The data object should include necessary timestamps from the service layer.
  */
 export const updateDocument = async (
   collectionName: string, 
@@ -62,8 +60,5 @@ export const updateDocument = async (
   data: Partial<DocumentData>
 ) => {
   const docRef = doc(db, collectionName, id);
-  return await updateDoc(docRef, {
-    ...data,
-    updatedAt: new Date().toISOString(),
-  });
+  return await updateDoc(docRef, data);
 };
