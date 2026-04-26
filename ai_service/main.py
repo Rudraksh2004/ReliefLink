@@ -9,7 +9,15 @@ import os
 from typing import List, Dict
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
-from geofire_common import distanceBetween # For distance calculation
+import math
+
+def haversine_distance(coord1, coord2):
+    R = 6371.0  # Earth radius in km
+    lat1, lon1 = math.radians(coord1[0]), math.radians(coord1[1])
+    lat2, lon2 = math.radians(coord2[0]), math.radians(coord2[1])
+    dlat, dlon = lat2 - lat1, lon2 - lon1
+    a = math.sin(dlat / 2)**2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2)**2
+    return R * 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
 
 # 1. Initialize Firebase
 # Recommended: Set GOOGLE_APPLICATION_CREDENTIALS environment variable to the path of your JSON key
@@ -108,7 +116,7 @@ async def explainable_match(task_id: str, payload: Dict = Body(...)):
         # Calculate Distance
         dist_km = 99
         if v_loc and task_loc:
-            dist_km = distanceBetween(
+            dist_km = haversine_distance(
                  [v_loc.get('lat', 0), v_loc.get('lng', 0)],
                  [task_loc.get('lat', 0), task_loc.get('lng', 0)]
             )
@@ -190,7 +198,7 @@ async def match_task_for_volunteer(volunteer_id: str, limit: int = 5):
         # Calculate Distance
         dist_km = 99
         if v_loc and t_loc:
-            dist_km = distanceBetween(
+            dist_km = haversine_distance(
                  [v_loc.get("lat", 0), v_loc.get("lng", 0)],
                  [t_loc.get("lat", 0), t_loc.get("lng", 0)]
             )
