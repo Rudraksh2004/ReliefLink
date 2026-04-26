@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Search, MoreHorizontal, MapPin } from 'lucide-react';
 import { db } from '../lib/firebase';
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { collection, onSnapshot, query, where, QuerySnapshot, DocumentData } from 'firebase/firestore';
 
 const VolunteerDatabase: React.FC = () => {
   const [search, setSearch] = useState('');
   const [volunteers, setVolunteers] = useState<any[]>([]);
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, 'volunteers'), (snapshot) => {
+    const unsubscribe = onSnapshot(collection(db, 'volunteers'), (snapshot: QuerySnapshot<DocumentData>) => {
       const docs = snapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AlertCircle, Users, Cpu, Timer } from 'lucide-react';
 import { db } from '../lib/firebase';
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { collection, onSnapshot, query, where, QuerySnapshot, DocumentData } from 'firebase/firestore';
 
 const StatCards: React.FC = () => {
   const [stats, setStats] = useState({
@@ -14,19 +14,19 @@ const StatCards: React.FC = () => {
   useEffect(() => {
     // 1. Listen to critical needs
     const qNeeds = query(collection(db, 'community_needs'), where('priority_level', '==', 'Critical'));
-    const unsubscribeNeeds = onSnapshot(qNeeds, (snapshot) => {
-      setStats(prev => ({ ...prev, criticalNeeds: snapshot.docs.length }));
+    const unsubscribeNeeds = onSnapshot(qNeeds, (snapshot: QuerySnapshot<DocumentData>) => {
+      setStats((prev: any) => ({ ...prev, criticalNeeds: snapshot.docs.length }));
     });
 
     // 2. Listen to available volunteers
     const qVolunteers = query(collection(db, 'volunteers'), where('isActive', '==', true));
-    const unsubscribeVolunteers = onSnapshot(qVolunteers, (snapshot) => {
-      setStats(prev => ({ ...prev, availableVolunteers: snapshot.docs.length }));
+    const unsubscribeVolunteers = onSnapshot(qVolunteers, (snapshot: QuerySnapshot<DocumentData>) => {
+      setStats((prev: any) => ({ ...prev, availableVolunteers: snapshot.docs.length }));
     });
 
     // 3. Listen to matches
-    const unsubscribeMatches = onSnapshot(collection(db, 'matches'), (snapshot) => {
-      setStats(prev => ({ ...prev, matchCount: snapshot.docs.length }));
+    const unsubscribeMatches = onSnapshot(collection(db, 'matches'), (snapshot: QuerySnapshot<DocumentData>) => {
+      setStats((prev: any) => ({ ...prev, matchCount: snapshot.docs.length }));
     });
 
     return () => {

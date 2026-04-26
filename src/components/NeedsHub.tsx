@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AlertCircle, Clock, CheckCircle, Plus } from 'lucide-react';
 import { db } from '../lib/firebase';
-import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
+import { collection, onSnapshot, query, orderBy, QuerySnapshot, DocumentData } from 'firebase/firestore';
 
 const priorityColors: Record<string, string> = {
   Critical: 'bg-red-100 text-red-700 border-red-200',
@@ -22,7 +22,7 @@ const NeedsHub: React.FC = () => {
 
   useEffect(() => {
     const q = query(collection(db, 'community_needs'), orderBy('createdAt', 'desc'));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
+    const unsubscribe = onSnapshot(q, (snapshot: QuerySnapshot<DocumentData>) => {
       const docs = snapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, CircleMarker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { db } from '../lib/firebase';
-import { collection, onSnapshot } from 'firebase/firestore';
+import { collection, onSnapshot, QuerySnapshot, DocumentData } from 'firebase/firestore';
 
 // Fix for Leaflet marker icons in React
 import L from 'leaflet';
@@ -22,7 +22,7 @@ const GeographicHeatmap: React.FC = () => {
   const center: [number, number] = [19.0760, 72.8777]; // Mumbai center
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, 'region_priority_scores'), (snapshot) => {
+    const unsubscribe = onSnapshot(collection(db, 'region_priority_scores'), (snapshot: QuerySnapshot<DocumentData>) => {
       const data = snapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()

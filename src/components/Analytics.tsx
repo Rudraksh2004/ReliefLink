@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../lib/firebase';
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { collection, onSnapshot, query, where, QuerySnapshot, DocumentData } from 'firebase/firestore';
 import {
   LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid,
   Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend, AreaChart, Area
@@ -19,7 +19,7 @@ const Analytics: React.FC = () => {
 
   useEffect(() => {
     // 1. Listen to community_needs
-    const unsubscribeNeeds = onSnapshot(collection(db, 'community_needs'), (snapshot) => {
+    const unsubscribeNeeds = onSnapshot(collection(db, 'community_needs'), (snapshot: QuerySnapshot<DocumentData>) => {
       const docs = snapshot.docs.map(doc => doc.data());
       const total = docs.length;
       const resolved = docs.filter(d => d.status === 'completed' || d.status === 'resolved').length;
@@ -33,18 +33,16 @@ const Analytics: React.FC = () => {
       });
       const catArray = Object.keys(categories).map(name => ({ name, value: categories[name] }));
       
-      setStats(prev => ({ ...prev, totalRequests: total, resolved, highPriority: high }));
+      setStats((prev: any) => ({ ...prev, totalRequests: total, resolved, highPriority: high }));
       setCategoryData(catArray);
     });
 
-    // 2. Listen to volunteers
-    const unsubscribeVolunteers = onSnapshot(collection(db, 'volunteers'), (snapshot) => {
-      setStats(prev => ({ ...prev, volunteers: snapshot.docs.length }));
+    const unsubscribeVolunteers = onSnapshot(collection(db, 'volunteers'), (snapshot: QuerySnapshot<DocumentData>) => {
+      setStats((prev: any) => ({ ...prev, volunteers: snapshot.docs.length }));
     });
 
-    // 3. Listen to assignments (matches)
-    const unsubscribeMatches = onSnapshot(collection(db, 'matches'), (snapshot) => {
-      setStats(prev => ({ ...prev, assignments: snapshot.docs.length }));
+    const unsubscribeMatches = onSnapshot(collection(db, 'matches'), (snapshot: QuerySnapshot<DocumentData>) => {
+      setStats((prev: any) => ({ ...prev, assignments: snapshot.docs.length }));
     });
 
     return () => {
