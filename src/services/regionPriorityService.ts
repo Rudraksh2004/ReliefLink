@@ -37,7 +37,7 @@ export const updateRegionPriorityScoreDoc = async (id: string, data: Partial<Reg
 /**
  * Aggregates needs for a region and updates the priority score document.
  */
-export const updateRegionPriorityScore = async (regionName: string) => {
+export const updateRegionPriorityScore = async (regionName: string, mlPriorityLevel?: PriorityLevel) => {
   try {
     // 1. Fetch all needs for this region
     const needs = await getAllCommunityNeeds([where("locationName", "==", regionName)]);
@@ -47,11 +47,14 @@ export const updateRegionPriorityScore = async (regionName: string) => {
     const totalNeeds = needs.length;
     const averageUrgencyScore = needs.reduce((sum, n) => sum + (n.urgencyScore || 0), 0) / totalNeeds;
 
-    // 2. Determine priority level
-    let priorityLevel = PriorityLevel.LOW;
-    if (averageUrgencyScore >= 9) priorityLevel = PriorityLevel.CRITICAL;
-    else if (averageUrgencyScore >= 7) priorityLevel = PriorityLevel.HIGH;
-    else if (averageUrgencyScore >= 4) priorityLevel = PriorityLevel.MEDIUM;
+    // 2. Determine priority level (ML override or Rule-based)
+    let priorityLevel = mlPriorityLevel || PriorityLevel.LOW;
+    
+    if (!mlPriorityLevel) {
+      if (averageUrgencyScore >= 9) priorityLevel = PriorityLevel.CRITICAL;
+      else if (averageUrgencyScore >= 7) priorityLevel = PriorityLevel.HIGH;
+      else if (averageUrgencyScore >= 4) priorityLevel = PriorityLevel.MEDIUM;
+    }
 
     // 3. Find if region doc exists
     const regionQuery = query(collection(db, COLLECTION), where("regionName", "==", regionName));

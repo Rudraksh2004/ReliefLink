@@ -7,11 +7,13 @@ import {
 } from "@/types/communityNeed";
 import { createCommunityNeed, updateCommunityNeed, getCommunityNeedById } from "@/services/communityNeedsService";
 import { createAssignment } from "@/services/assignmentService";
-import { updateVolunteer } from "@/services/volunteerService";
+import { updateVolunteer, getAllVolunteers } from "@/services/volunteerService";
 import { updateRegionPriorityScore } from "@/services/regionPriorityService";
 import { calculateUrgencyScore } from "@/lib/algorithms/urgencyScore";
 import { findBestVolunteer } from "@/lib/algorithms/volunteerMatcher";
+import { predictCategory, predictUrgency, predictMatch, predictRegionPriority } from "@/services/mlService";
 import { AssignmentStatus } from "@/types/assignment";
+import { PriorityLevel } from "@/types/regionPriorityScore";
 import { Button } from "@/components/ui/Button";
 
 interface FormState {
@@ -45,17 +47,58 @@ export const CommunityNeedForm = () => {
       const need = await getCommunityNeedById(needId);
       if (!need) return;
 
-      const match = await findBestVolunteer(need);
+      // --- STEP 3: ML-POWERED VOLUNTEER MATCHING ---
+      let bestMatch: { volunteerId: string, score: number, name: string, assignedTaskIds: string[] } | null = null;
       
-      if (match) {
-        const { volunteer, score } = match;
-        console.log(`Best volunteer matched: ${volunteer.name} (Score: ${score})`);
+      const volunteers = await getAllVolunteers();
+      
+      if (volunteers.length > 0) {
+        // Try ML Prediction for each volunteer
+        for (const volunteer of volunteers) {
+          const mlScore = await predictMatch(
+            need.category,
+            need.urgencyScore,
+            volunteer.skills,
+            volunteer.availability,
+            // Calculate distance for ML input
+            Math.sqrt(Math.pow(need.latitude - volunteer.latitude, 2) + Math.pow(need.longitude - volunteer.longitude, 2)) * 111
+          );
+
+          const finalScore = mlScore !== null ? mlScore : 0; // Fallback score 0 if ML fails for individual
+
+          if (!bestMatch || finalScore > bestMatch.score) {
+            bestMatch = { 
+              volunteerId: volunteer.id!, 
+              score: finalScore, 
+              name: volunteer.name,
+              assignedTaskIds: volunteer.assignedTaskIds || []
+            };
+          }
+        }
+      }
+
+      // If ML matching found nothing or failed, fallback to rule-based algorithm
+      if (!bestMatch || bestMatch.score === 0) {
+        const fallbackMatch = await findBestVolunteer(need);
+        if (fallbackMatch) {
+          bestMatch = { 
+            volunteerId: fallbackMatch.volunteer.id!, 
+            score: fallbackMatch.score, 
+            name: fallbackMatch.volunteer.name,
+            assignedTaskIds: fallbackMatch.volunteer.assignedTaskIds || []
+          };
+          console.log("Using rule-based volunteer matching fallback.");
+        }
+      }
+      
+      if (bestMatch) {
+        console.log(`Best volunteer matched: ${bestMatch.name} (Score: ${bestMatch.score})`);
 
         // 1. Create Assignment
         await createAssignment({
           needId: needId,
-          volunteerId: volunteer.id!,
-          assignmentScore: score,
+          volunteerId: bestMatch.volunteerId,
+          assignmentScore: bestMatch.score,
           status: AssignmentStatus.ASSIGNED,
         });
 
@@ -63,15 +106,24 @@ export const CommunityNeedForm = () => {
         await updateCommunityNeed(needId, { status: CommunityNeedStatus.MATCHED });
 
         // 3. Update Volunteer Assigned Tasks
-        await updateVolunteer(volunteer.id!, {
-          assignedTaskIds: [...(volunteer.assignedTaskIds || []), needId]
+        await updateVolunteer(bestMatch.volunteerId, {
+          assignedTaskIds: [...bestMatch.assignedTaskIds, needId]
         });
 
-        // 4. Update Region Priority Score
-        await updateRegionPriorityScore(need.locationName);
+        // --- STEP 4: ML-POWERED REGION PRIORITY ---
+        const totalNeedsInRegion = (await getCommunityNeedById(needId)) ? 1 : 1; // Simplified for prototype
+        const mlPriority = await predictRegionPriority(
+          need.latitude,
+          need.longitude,
+          need.urgencyScore,
+          totalNeedsInRegion
+        );
+
+        // Update Region Priority Score with ML override if available
+        await updateRegionPriorityScore(need.locationName, mlPriority as PriorityLevel);
 
         console.log("Volunteer matching pipeline working");
-        console.log(`Successfully matched volunteer ${volunteer.name} to need ${needId}`);
+        console.log(`Successfully matched volunteer ${bestMatch.name} to need ${needId}`);
       } else {
         console.log("No volunteers available for matching at this time.");
       }
@@ -82,13 +134,20 @@ export const CommunityNeedForm = () => {
 
   const handleAfterSubmit = async (docId: string, data: FormState) => {
     try {
-      // 1. Calculate and update urgency score
-      const urgencyScore = calculateUrgencyScore(data as any);
+      // --- STEP 2: ML-POWERED URGENCY SCORING ---
+      let urgencyScore = await predictUrgency(data.description, data.peopleAffected, data.category);
+      
+      if (urgencyScore === null) {
+        // Fallback to rule-based
+        urgencyScore = calculateUrgencyScore(data as any);
+        console.log("Using rule-based urgency scoring fallback.");
+      }
+
       console.log(`Urgency score calculated: ${urgencyScore}`);
       await updateCommunityNeed(docId, { urgencyScore });
       console.log("Urgency scoring pipeline working");
 
-      // 2. Trigger volunteer matching
+      // Trigger volunteer matching
       await handleVolunteerMatching(docId);
       
     } catch (err) {
@@ -117,14 +176,21 @@ export const CommunityNeedForm = () => {
 
     setLoading(true);
     try {
-      const result = await createCommunityNeed({
+      // --- STEP 1: ML-POWERED CATEGORY PREDICTION ---
+      const predictedCategory = await predictCategory(formData.description);
+      const finalData = {
         ...formData,
+        category: (predictedCategory as CommunityNeedCategory) || formData.category
+      };
+
+      const result = await createCommunityNeed({
+        ...finalData,
         urgencyScore: 0,
         status: CommunityNeedStatus.PENDING,
       });
 
       setSuccess(true);
-      const submittedData = { ...formData }; // Capture data before reset
+      const submittedData = { ...finalData }; // Capture data before reset
       setFormData(initialState);
       await handleAfterSubmit(result.id, submittedData);
     } catch (err) {
