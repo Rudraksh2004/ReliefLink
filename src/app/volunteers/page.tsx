@@ -1,33 +1,60 @@
 import React from "react";
+import { VolunteerRegistrationForm } from "@/components/forms/VolunteerRegistrationForm";
 
 export default function VolunteersPage() {
   return (
-    <div className="p-8 space-y-6">
-      <header className="flex justify-between items-center">
+    <div className="p-8 space-y-12 max-w-7xl mx-auto">
+      <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold">Volunteers</h1>
-          <p className="text-gray-500">Manage volunteer matching and resource allocation.</p>
+          <h1 className="text-4xl font-extrabold tracking-tight">Volunteers</h1>
+          <p className="text-gray-500 mt-2 text-lg">Manage volunteer registration and task matching.</p>
         </div>
-        <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/20">
-          Add Volunteer
-        </button>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-        {/* Placeholder for volunteer cards */}
-        {[1, 2, 3].map((i) => (
-          <div key={i} className="p-6 rounded-2xl bg-white dark:bg-neutral-900 shadow-sm border border-gray-100 dark:border-neutral-800 animate-pulse">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-12 h-12 bg-gray-200 dark:bg-neutral-800 rounded-full"></div>
-              <div className="space-y-2">
-                <div className="h-4 w-24 bg-gray-200 dark:bg-neutral-800 rounded"></div>
-                <div className="h-3 w-16 bg-gray-100 dark:bg-neutral-800 rounded"></div>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        {/* Left: Registration Form */}
+        <div className="lg:col-span-5">
+          <VolunteerRegistrationForm />
+        </div>
+
+        {/* Right: Volunteer List / Stats Placeholder */}
+        <div className="lg:col-span-7 space-y-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="p-6 rounded-2xl bg-white dark:bg-neutral-900 border border-gray-100 dark:border-neutral-800 shadow-sm">
+              <h3 className="text-gray-500 text-sm font-medium">Active Volunteers</h3>
+              <p className="text-4xl font-bold mt-2">0</p>
+              <div className="mt-4 flex items-center gap-2 text-green-600 text-sm font-medium">
+                <span className="w-2 h-2 rounded-full bg-green-600"></span>
+                Available for matching
               </div>
             </div>
-            <div className="h-3 w-full bg-gray-100 dark:bg-neutral-800 rounded mt-2"></div>
-            <div className="h-3 w-2/3 bg-gray-100 dark:bg-neutral-800 rounded mt-2"></div>
+            <div className="p-6 rounded-2xl bg-white dark:bg-neutral-900 border border-gray-100 dark:border-neutral-800 shadow-sm">
+              <h3 className="text-gray-500 text-sm font-medium">Tasks Assigned</h3>
+              <p className="text-4xl font-bold mt-2">0</p>
+              <div className="mt-4 flex items-center gap-2 text-blue-600 text-sm font-medium">
+                <span className="w-2 h-2 rounded-full bg-blue-600"></span>
+                In-progress relief
+              </div>
+            </div>
           </div>
-        ))}
+
+          <div className="rounded-2xl bg-white dark:bg-neutral-900 border border-gray-100 dark:border-neutral-800 shadow-sm overflow-hidden">
+            <div className="p-6 border-b border-gray-100 dark:border-neutral-800 flex justify-between items-center bg-gray-50/50 dark:bg-neutral-800/50">
+              <h2 className="font-bold text-xl">Recent Registrations</h2>
+            </div>
+            <div className="p-20 text-center flex flex-col items-center justify-center space-y-4">
+              <div className="w-16 h-16 bg-gray-100 dark:bg-neutral-800 rounded-full flex items-center justify-center">
+                <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              </div>
+              <div className="max-w-xs mx-auto">
+                <p className="font-semibold text-gray-900 dark:text-gray-100">No volunteers registered</p>
+                <p className="text-gray-500 text-sm mt-1">New volunteers will appear here once they complete the registration form.</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
