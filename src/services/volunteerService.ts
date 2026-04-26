@@ -1,4 +1,4 @@
-import { addDocument, updateDocument, getDocuments } from "@/lib/firestore";
+import { addDocument, updateDocument, getCollection } from "@/lib/firestore";
 import { Volunteer } from "@/types/volunteer";
 
 const COLLECTION = "volunteers";
@@ -12,7 +12,7 @@ export const registerVolunteer = async (volunteerData: Omit<Volunteer, "id" | "l
 };
 
 export const fetchAvailableVolunteers = async () => {
-  return await getDocuments(COLLECTION) as Volunteer[];
+  return await getCollection(COLLECTION) as Volunteer[];
 };
 
 export const updateVolunteerAvailability = async (id: string, status: Volunteer["availabilityStatus"]) => {

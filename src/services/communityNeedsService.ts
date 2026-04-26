@@ -1,4 +1,4 @@
-import { addDocument, updateDocument, getDocuments } from "@/lib/firestore";
+import { addDocument, updateDocument, getCollection } from "@/lib/firestore";
 import { CommunityNeed } from "@/types/communityNeed";
 import { calculateUrgencyScore } from "@/lib/algorithms/urgencyScore";
 
@@ -14,7 +14,7 @@ export const createCommunityNeed = async (needData: Omit<CommunityNeed, "id" | "
 };
 
 export const fetchAllNeeds = async () => {
-  return await getDocuments(COLLECTION) as CommunityNeed[];
+  return await getCollection(COLLECTION) as CommunityNeed[];
 };
 
 export const updateNeedStatus = async (id: string, status: CommunityNeed["status"]) => {
