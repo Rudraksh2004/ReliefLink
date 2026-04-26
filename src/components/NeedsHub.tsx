@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, useEffect } from 'react';
 import { AlertCircle, Clock, CheckCircle, Plus } from 'lucide-react';
 import { db } from '../lib/firebase';

@@ -1,11 +1,17 @@
+'use client';
 import React from 'react';
+import dynamic from 'next/dynamic';
 import StatCards from './StatCards';
 import VolunteerDatabase from './VolunteerDatabase';
 import EmergencyForm from './EmergencyForm';
 import SmartMatchingPanel from './SmartMatchingPanel';
 import AllocationBreakdown from './AllocationBreakdown';
-import GeographicHeatmap from './GeographicHeatmap';
 import Notifications from './Notifications';
+
+const GeographicHeatmap = dynamic(() => import('./GeographicHeatmap'), { 
+  ssr: false,
+  loading: () => <div className="h-[300px] w-full bg-gray-100 animate-pulse rounded-xl flex items-center justify-center text-gray-400">Loading Map...</div>
+});
 
 const Dashboard: React.FC = () => {
   return (

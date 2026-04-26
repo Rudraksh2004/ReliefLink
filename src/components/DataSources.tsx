@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 import { Database, CheckCircle, AlertCircle, RefreshCw, Upload, Plus } from 'lucide-react';
 

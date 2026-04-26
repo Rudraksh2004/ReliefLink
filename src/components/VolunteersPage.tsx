@@ -1,3 +1,4 @@
+'use client';
 import VolunteerDatabase from "./VolunteerDatabase";
 import { UserPlus } from "lucide-react";
 

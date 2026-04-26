@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
-import Sidebar from './components/Sidebar';
-import TopBar from './components/TopBar';
-import Dashboard from './components/Dashboard';
-import NeedsHub from './components/NeedsHub';
-import VolunteersPage from './components/VolunteersPage';
-import Analytics from './components/Analytics';
-import DataSources from './components/DataSources';
-import Settings from './components/Settings';
+"use client";
 
-const App: React.FC = () => {
+import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
+import Sidebar from '@/components/Sidebar';
+import TopBar from '@/components/TopBar';
+
+const Dashboard = dynamic(() => import('@/components/Dashboard'), { ssr: false });
+const NeedsHub = dynamic(() => import('@/components/NeedsHub'), { ssr: false });
+const VolunteersPage = dynamic(() => import('@/components/VolunteersPage'), { ssr: false });
+const Analytics = dynamic(() => import('@/components/Analytics'), { ssr: false });
+const DataSources = dynamic(() => import('@/components/DataSources'), { ssr: false });
+const Settings = dynamic(() => import('@/components/Settings'), { ssr: false });
+
+export default function Home() {
   const [activeNav, setActiveNav] = useState('dashboard');
 
   const renderContent = () => {
@@ -42,6 +46,4 @@ const App: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default App;
+}

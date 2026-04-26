@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import { LayoutDashboard, Heart, Users, BarChart3, Database, Settings, Wifi } from 'lucide-react';
 
