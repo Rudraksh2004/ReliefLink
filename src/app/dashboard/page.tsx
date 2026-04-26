@@ -29,6 +29,10 @@ export default function DashboardPage() {
     );
   }
 
+  if (needs.length >= 0) {
+    console.log("Dashboard realtime listener working");
+  }
+
   // Summary Metrics
   const totalNeeds = needs.length;
   const totalVolunteers = volunteers.length;

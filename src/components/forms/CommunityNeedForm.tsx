@@ -8,6 +8,7 @@ import {
 import { createCommunityNeed, updateCommunityNeed, getCommunityNeedById } from "@/services/communityNeedsService";
 import { createAssignment } from "@/services/assignmentService";
 import { updateVolunteer } from "@/services/volunteerService";
+import { updateRegionPriorityScore } from "@/services/regionPriorityService";
 import { calculateUrgencyScore } from "@/lib/algorithms/urgencyScore";
 import { findBestVolunteer } from "@/lib/algorithms/volunteerMatcher";
 import { AssignmentStatus } from "@/types/assignment";
@@ -66,6 +67,10 @@ export const CommunityNeedForm = () => {
           assignedTaskIds: [...(volunteer.assignedTaskIds || []), needId]
         });
 
+        // 4. Update Region Priority Score
+        await updateRegionPriorityScore(need.locationName);
+
+        console.log("Volunteer matching pipeline working");
         console.log(`Successfully matched volunteer ${volunteer.name} to need ${needId}`);
       } else {
         console.log("No volunteers available for matching at this time.");
@@ -81,6 +86,7 @@ export const CommunityNeedForm = () => {
       const urgencyScore = calculateUrgencyScore(data as any);
       console.log(`Urgency score calculated: ${urgencyScore}`);
       await updateCommunityNeed(docId, { urgencyScore });
+      console.log("Urgency scoring pipeline working");
 
       // 2. Trigger volunteer matching
       await handleVolunteerMatching(docId);

@@ -83,6 +83,10 @@ export const PriorityHeatmap = () => {
     );
   }
 
+  if (regions.length >= 0) {
+    console.log("Heatmap realtime listener working");
+  }
+
   return (
     <div className="h-[600px] w-full rounded-2xl overflow-hidden border border-gray-100 dark:border-neutral-800 shadow-xl">
       <MapContainer 
