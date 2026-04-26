@@ -5,7 +5,7 @@ import axios from "axios";
 admin.initializeApp();
 const db = admin.firestore();
 
-const AI_SERVICE_URL = "http://localhost:8000"; 
+const AI_SERVICE_URL = process.env.AI_SERVICE_URL || "http://localhost:8000"; 
 
 // ----------------------------------------------------------------------------
 // 1. HEATMAP GENERATOR PIPELINE
@@ -81,14 +81,14 @@ export const triggerAutoAssignmentOnTask = functions.firestore
       const bestMatches = response.data.best_matches || [];
       const batch = db.batch();
       bestMatches.forEach((match: any) => {
-        const recRef = db.collection("recommendations").doc();
+        const recRef = db.collection("matches").doc();
         batch.set(recRef, {
-          task_id: taskId,
-          volunteer_id: match.volunteer_id,
-          match_score: match.match_score,
+          taskId: taskId,
+          volunteerId: match.volunteer_id,
+          score: match.match_score,
           explanation: match.explanation,
-          type: "TASK_TO_VOLUNTEER",
-          created_at: admin.firestore.FieldValue.serverTimestamp()
+          status: "ai_recommended",
+          timestamp: admin.firestore.FieldValue.serverTimestamp()
         });
       });
       return batch.commit();
@@ -102,5 +102,19 @@ export const calculateUrgencyScoring = functions.firestore
     if (!data) return null;
     const score = Math.min(100, Math.round((data.severity || 1) * 3 + Math.log10(data.peopleAffected || 1) * 10));
     const priority = score >= 80 ? "Critical" : score >= 60 ? "High" : "Low";
-    return snapshot.ref.update({ urgency_score: score, priority_level: priority });
+    await snapshot.ref.update({ urgency_score: score, priority_level: priority });
+
+    // For High/Critical needs, automatically create a task to trigger matching
+    if (priority === "Critical" || priority === "High") {
+      await db.collection("tasks").add({
+        needId: snapshot.id,
+        title: data.title || "Emergency Task",
+        category: data.category || "General",
+        location: data.location || null,
+        urgency_score: score,
+        status: "open",
+        createdAt: admin.firestore.FieldValue.serverTimestamp()
+      });
+    }
+    return null;
   });

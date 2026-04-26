@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { MapPin, ChevronDown } from 'lucide-react';
+import { db } from '../lib/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 const needTypes = ['First Aid', 'Food Supply', 'Medical', 'Evacuation', 'Shelter'];
 const priorities = ['High', 'Medium', 'Low', 'Critical'];
@@ -9,11 +11,32 @@ const EmergencyForm: React.FC = () => {
   const [need, setNeed] = useState('First Aid');
   const [priority, setPriority] = useState('High');
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 2500);
+    setLoading(true);
+    
+    try {
+      await addDoc(collection(db, 'community_needs'), {
+        title: `${need} request at ${location}`,
+        category: need,
+        priority_level: priority,
+        location_name: location,
+        status: 'pending',
+        createdAt: serverTimestamp(),
+        peopleAffected: 1, // Default for single report
+        severity: priority === 'Critical' ? 5 : priority === 'High' ? 4 : priority === 'Medium' ? 3 : 1
+      });
+      
+      setSubmitted(true);
+      setTimeout(() => setSubmitted(false), 2500);
+    } catch (error) {
+      console.error("Error submitting request:", error);
+      alert("Failed to submit request. Check console for details.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

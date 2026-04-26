@@ -36,5 +36,12 @@ service cloud.firestore {
       allow read: if hasRole('ngo') || hasRole('admin');
       allow write: if false; // Only updated via Cloud Functions
     }
+
+    // Region Priority Scores (Heatmap)
+    match /region_priority_scores/{regionId} {
+      allow read: if true;
+      allow write: if false; // Only updated via Cloud Functions
+    }
+
   }
 }

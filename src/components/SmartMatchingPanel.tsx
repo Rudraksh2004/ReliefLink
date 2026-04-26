@@ -1,53 +1,45 @@
-import React, { useState } from 'react';
-
-const matches = [
-  {
-    id: 1,
-    name: 'Rahul',
-    location: 'Mumbai, 1.2 km',
-    reason: 'Matched for specific availability',
-    avatar: 'Ra',
-    color: 'bg-blue-400',
-    assigned: false,
-  },
-  {
-    id: 2,
-    name: 'Jaya',
-    location: 'Mumbai, 6.7 km',
-    reason: 'Matched for Cooking skills',
-    avatar: 'J',
-    color: 'bg-purple-400',
-    assigned: false,
-  },
-  {
-    id: 3,
-    name: 'Amit',
-    location: 'Mumbai, 1.5 km',
-    reason: 'Matched for Driver skills (delivery)',
-    avatar: 'A',
-    color: 'bg-green-400',
-    assigned: false,
-  },
-];
+import React, { useState, useEffect } from 'react';
+import { db } from '../lib/firebase';
+import { collection, onSnapshot, query, orderBy, limit, doc, updateDoc } from 'firebase/firestore';
 
 const SmartMatchingPanel: React.FC = () => {
-  const [assigned, setAssigned] = useState<number[]>([]);
+  const [matches, setMatches] = useState<any[]>([]);
 
-  const handleAssign = (id: number) => {
-    setAssigned((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
+  useEffect(() => {
+    const q = query(collection(db, 'matches'), orderBy('timestamp', 'desc'), limit(5));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const docs = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setMatches(docs);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const handleAssign = async (matchId: string) => {
+    try {
+      const matchRef = doc(db, 'matches', matchId);
+      await updateDoc(matchRef, {
+        status: 'assigned',
+        assignedAt: new Date()
+      });
+    } catch (error) {
+      console.error("Error assigning:", error);
+    }
   };
 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 px-4 py-4">
       <h2 className="text-base font-bold text-gray-800 mb-1">Smart Matching Panel</h2>
       <div className="flex items-center gap-2 mb-3">
-        <span className="text-sm text-gray-600 font-medium">Critical Food Shortage</span>
-        <span className="text-xs font-bold text-orange-500">(High Priority)</span>
+        <span className="text-sm text-gray-600 font-medium">Recent AI Recommendations</span>
+        <span className="text-xs font-bold text-blue-500">(Real-time)</span>
       </div>
 
       <div className="flex flex-col gap-2">
         {matches.map((m) => {
-          const isAssigned = assigned.includes(m.id);
+          const isAssigned = m.status === 'assigned';
           return (
             <div
               key={m.id}
@@ -57,27 +49,28 @@ const SmartMatchingPanel: React.FC = () => {
                   : 'border-gray-100 bg-gray-50 hover:border-blue-200'
               }`}
             >
-              {/* Blue accent line */}
+              {/* Status accent line */}
               <div className={`w-1 h-full min-h-[40px] rounded-full ${isAssigned ? 'bg-green-400' : 'bg-blue-400'}`} />
 
-              {/* Avatar */}
-              <div className={`w-9 h-9 ${m.color} rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0`}>
-                {m.avatar}
+              {/* Avatar Fallback */}
+              <div className={`w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0 ${isAssigned ? 'bg-green-400' : 'bg-blue-400'}`}>
+                {m.volunteerId ? m.volunteerId[0].toUpperCase() : 'V'}
               </div>
 
               {/* Info */}
               <div className="flex-1 min-w-0">
-                <div className="text-sm font-semibold text-gray-800">{m.name}</div>
-                <div className="text-xs text-gray-500">{m.location}</div>
-                <div className="text-xs text-gray-400 truncate">{m.reason}</div>
+                <div className="text-sm font-semibold text-gray-800">ID: {m.volunteerId?.substring(0, 8)}</div>
+                <div className="text-xs text-gray-500">Score: {Math.round(m.score * 100)}%</div>
+                <div className="text-xs text-gray-400 truncate">{m.explanation || 'Matched for expertise'}</div>
               </div>
 
               {/* Assign Button */}
               <button
-                onClick={() => handleAssign(m.id)}
+                onClick={() => !isAssigned && handleAssign(m.id)}
+                disabled={isAssigned}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                   isAssigned
-                    ? 'bg-green-500 text-white'
+                    ? 'bg-green-500 text-white cursor-default'
                     : 'bg-[#16a34a] text-white hover:bg-[#15803d]'
                 }`}
               >
@@ -86,6 +79,11 @@ const SmartMatchingPanel: React.FC = () => {
             </div>
           );
         })}
+        {matches.length === 0 && (
+          <div className="text-center py-4 text-xs text-gray-400 italic">
+            Waiting for AI recommendations...
+          </div>
+        )}
       </div>
     </div>
   );

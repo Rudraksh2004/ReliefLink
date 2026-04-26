@@ -12,10 +12,16 @@ from sklearn.metrics.pairwise import cosine_similarity
 from geofire_common import distanceBetween # For distance calculation
 
 # 1. Initialize Firebase
+# Recommended: Set GOOGLE_APPLICATION_CREDENTIALS environment variable to the path of your JSON key
 try:
-    cred = credentials.Certificate("../serviceAccount.json")
-    firebase_admin.initialize_app(cred)
-except Exception:
+    if os.path.exists("../serviceAccount.json"):
+        cred = credentials.Certificate("../serviceAccount.json")
+        firebase_admin.initialize_app(cred)
+    else:
+        # Falls back to Application Default Credentials
+        firebase_admin.initialize_app()
+except Exception as e:
+    print(f"Warning: Firebase initialization fallback triggered. Error: {e}")
     firebase_admin.initialize_app()
 
 db = firestore.client()

@@ -1,56 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Search, MoreHorizontal, MapPin } from 'lucide-react';
-
-const volunteers = [
-  {
-    id: 1,
-    name: 'Jaya',
-    skills: 'First Aid, Cooking',
-    location: 'Mumbai',
-    distance: '6.7 km',
-    available: true,
-    avatar: 'J',
-    color: 'bg-purple-400',
-  },
-  {
-    id: 2,
-    name: 'Rohit',
-    skills: 'Driver',
-    location: 'Mumbai',
-    distance: '1.4 km',
-    available: true,
-    avatar: 'R',
-    color: 'bg-blue-400',
-  },
-  {
-    id: 3,
-    name: 'Sita',
-    skills: 'Medical, Training',
-    location: 'Mumbai',
-    distance: '4.7 km',
-    available: true,
-    avatar: 'S',
-    color: 'bg-pink-400',
-  },
-  {
-    id: 4,
-    name: 'Amit',
-    skills: 'Driver',
-    location: 'Mumbai',
-    distance: '1.5 km',
-    available: true,
-    avatar: 'A',
-    color: 'bg-green-400',
-  },
-];
+import { db } from '../lib/firebase';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 
 const VolunteerDatabase: React.FC = () => {
   const [search, setSearch] = useState('');
+  const [volunteers, setVolunteers] = useState<any[]>([]);
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, 'volunteers'), (snapshot) => {
+      const docs = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setVolunteers(docs);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const filtered = volunteers.filter(
     (v) =>
-      v.name.toLowerCase().includes(search.toLowerCase()) ||
-      v.skills.toLowerCase().includes(search.toLowerCase())
+      (v.name || '').toLowerCase().includes(search.toLowerCase()) ||
+      (v.skills || []).join(', ').toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -84,8 +55,8 @@ const VolunteerDatabase: React.FC = () => {
             className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer group border-b border-gray-50 last:border-0"
           >
             {/* Avatar */}
-            <div className={`w-9 h-9 ${v.color} rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0`}>
-              {v.avatar}
+            <div className={`w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0 ${v.isActive ? 'bg-blue-400' : 'bg-gray-400'}`}>
+              {(v.name || 'V')[0]}
             </div>
 
             {/* Info */}
@@ -93,17 +64,17 @@ const VolunteerDatabase: React.FC = () => {
               <div className="flex items-center justify-between">
                 <span className="text-sm font-semibold text-gray-800">{v.name}</span>
                 <div className="flex items-center gap-1 text-xs text-gray-500">
-                  <span>{v.location}</span>
+                  <span>{v.location_name || 'Mumbai'}</span>
                   <span className="text-gray-300">›</span>
                 </div>
               </div>
-              <div className="text-xs text-gray-500 truncate">{v.skills}</div>
+              <div className="text-xs text-gray-500 truncate">{(v.skills || []).join(', ')}</div>
               <div className="flex items-center gap-2 mt-0.5">
                 <div className="flex items-center gap-1 text-xs text-gray-400">
                   <MapPin size={10} />
-                  <span>{v.distance}</span>
+                  <span>{v.distance || 'Nearby'}</span>
                 </div>
-                {v.available && (
+                {v.isActive && (
                   <span className="text-[10px] bg-green-100 text-green-700 px-1.5 py-0.5 rounded font-semibold">
                     Available
                   </span>

@@ -1,5 +1,4 @@
 {
-{
   "name": "react-vite-tailwind",
   "private": true,
   "version": "0.0.0",
@@ -15,7 +14,7 @@
   "dependencies": {
     "clsx": "2.1.1",
     "csv-parse": "^5.4.0",
-    "firebase-admin": "^11.11.1",
+    "firebase": "^11.0.0",
     "geofire-common": "^6.0.0",
     "leaflet": "^1.9.4",
     "leaflet.heat": "^0.2.0",
@@ -41,5 +40,4 @@
     "vite-plugin-singlefile": "2.3.0"
   }
 }
-  }
-}
+
