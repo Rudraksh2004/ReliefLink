@@ -5,7 +5,8 @@ import {
   CommunityNeedCategory, 
   CommunityNeedStatus 
 } from "@/types/communityNeed";
-import { createCommunityNeed } from "@/services/communityNeedsService";
+import { createCommunityNeed, updateCommunityNeed } from "@/services/communityNeedsService";
+import { calculateUrgencyScore } from "@/lib/algorithms/urgencyScore";
 import { Button } from "@/components/ui/Button";
 
 interface FormState {
@@ -34,9 +35,19 @@ export const CommunityNeedForm = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleAfterSubmit = async (docId: string) => {
-    // TODO: Trigger urgency scoring logic hook
-    console.log(`Need submitted with ID: ${docId}. Triggering scoring...`);
+  const handleAfterSubmit = async (docId: string, data: FormState) => {
+    try {
+      // Calculate score based on submitted data
+      const urgencyScore = calculateUrgencyScore(data as any);
+      
+      console.log(`Urgency score calculated: ${urgencyScore}`);
+
+      // Update the document in Firestore
+      await updateCommunityNeed(docId, { urgencyScore });
+      
+    } catch (err) {
+      console.error("Error in post-submission scoring:", err);
+    }
   };
 
   const validate = () => {
@@ -67,8 +78,9 @@ export const CommunityNeedForm = () => {
       });
 
       setSuccess(true);
+      const submittedData = { ...formData }; // Capture data before reset
       setFormData(initialState);
-      await handleAfterSubmit(result.id);
+      await handleAfterSubmit(result.id, submittedData);
     } catch (err) {
       console.error("Submission error:", err);
       setError("Failed to submit request. Please check your connection.");
