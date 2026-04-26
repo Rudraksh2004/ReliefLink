@@ -5,8 +5,12 @@ import {
   CommunityNeedCategory, 
   CommunityNeedStatus 
 } from "@/types/communityNeed";
-import { createCommunityNeed, updateCommunityNeed } from "@/services/communityNeedsService";
+import { createCommunityNeed, updateCommunityNeed, getCommunityNeedById } from "@/services/communityNeedsService";
+import { createAssignment } from "@/services/assignmentService";
+import { updateVolunteer } from "@/services/volunteerService";
 import { calculateUrgencyScore } from "@/lib/algorithms/urgencyScore";
+import { findBestVolunteer } from "@/lib/algorithms/volunteerMatcher";
+import { AssignmentStatus } from "@/types/assignment";
 import { Button } from "@/components/ui/Button";
 
 interface FormState {
@@ -35,18 +39,54 @@ export const CommunityNeedForm = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const handleVolunteerMatching = async (needId: string) => {
+    try {
+      const need = await getCommunityNeedById(needId);
+      if (!need) return;
+
+      const match = await findBestVolunteer(need);
+      
+      if (match) {
+        const { volunteer, score } = match;
+        console.log(`Best volunteer matched: ${volunteer.name} (Score: ${score})`);
+
+        // 1. Create Assignment
+        await createAssignment({
+          needId: needId,
+          volunteerId: volunteer.id!,
+          assignmentScore: score,
+          status: AssignmentStatus.ASSIGNED,
+        });
+
+        // 2. Update Community Need Status
+        await updateCommunityNeed(needId, { status: CommunityNeedStatus.MATCHED });
+
+        // 3. Update Volunteer Assigned Tasks
+        await updateVolunteer(volunteer.id!, {
+          assignedTaskIds: [...(volunteer.assignedTaskIds || []), needId]
+        });
+
+        console.log(`Successfully matched volunteer ${volunteer.name} to need ${needId}`);
+      } else {
+        console.log("No volunteers available for matching at this time.");
+      }
+    } catch (err) {
+      console.error("Error in volunteer matching:", err);
+    }
+  };
+
   const handleAfterSubmit = async (docId: string, data: FormState) => {
     try {
-      // Calculate score based on submitted data
+      // 1. Calculate and update urgency score
       const urgencyScore = calculateUrgencyScore(data as any);
-      
       console.log(`Urgency score calculated: ${urgencyScore}`);
-
-      // Update the document in Firestore
       await updateCommunityNeed(docId, { urgencyScore });
+
+      // 2. Trigger volunteer matching
+      await handleVolunteerMatching(docId);
       
     } catch (err) {
-      console.error("Error in post-submission scoring:", err);
+      console.error("Error in post-submission workflow:", err);
     }
   };
 
