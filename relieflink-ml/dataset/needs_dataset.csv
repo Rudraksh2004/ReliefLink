@@ -1,61 +1,151 @@
 description,category
-"Severe injury, bleeding profusely, need immediate medical attention","medical"
-"Patient requires oxygen cylinders urgently at sector 5","medical"
-"First aid kits and bandages required for local clinic","medical"
-"Need ambulance for heart attack victim","medical"
-"Critical medicine for diabetes needed at block B","medical"
-"Epidemic outbreak suspected, need medical screening kits","medical"
-"Doctor required for emergency delivery","medical"
-"Surgical masks and gloves for hospital staff","medical"
-"Clean water for cleaning wounds and basic medical use","medical"
-"Emergency vaccination needed for children in camp","medical"
-"Hungry families need dry ration and rice","food"
-"Clean drinking water shortage in the flood zone","food"
-"Baby food and milk powder required for infants","food"
-"Community kitchen needs cooking oil and spices","food"
-"Wheat and pulses for the relief camp","food"
-"Ready to eat meals needed for rescue teams","food"
-"Biscuits and energy bars for displaced persons","food"
-"Fresh vegetables and fruits for nutrition","food"
-"Portable water tanks needed for distribution","food"
-"Emergency food supplies for isolated village","food"
-"Tents and blankets needed for people whose houses collapsed","shelter"
-"Temporary roof covers for damaged homes","shelter"
-"Sleeping bags and mats for the shelter camp","shelter"
-"Need space for 50 people in a community hall","shelter"
-"Tarpaulin sheets for temporary roofing","shelter"
-"Portable toilets for the temporary camp","shelter"
-"Warm clothes and sweaters for the winter shelter","shelter"
-"Mosquito nets for people sleeping outdoors","shelter"
-"Lighting for the shelter area at night","shelter"
-"Soap and basic hygiene kits for the camp","shelter"
-"People trapped in collapsed building, need heavy machinery","rescue"
-"Flood rescue boats needed for stranded families","rescue"
-"Ropes and harnesses for mountain rescue","rescue"
-"Lifeguards and divers for river rescue","rescue"
-"Flashlights and batteries for night search operations","rescue"
-"Sniffer dogs for searching under debris","rescue"
-"Helicopter rescue requested for inaccessible hill","rescue"
-"Firefighters needed to control the warehouse fire","rescue"
-"Emergency evacuation teams for the coastal zone","rescue"
-"Ladders and cutting tools for rescue teams","rescue"
-"Trucks needed to transport goods from airport","logistics"
-"Forklifts for moving heavy relief crates","logistics"
-"Fuel for the transport vehicles and generators","logistics"
-"Warehouse space needed for storing medicines","logistics"
-"Coordinators for managing the volunteer teams","logistics"
-"Communication equipment like satellite phones","logistics"
-"Loading and unloading staff for the relief dock","logistics"
-"Logistics manager for tracking inventory","logistics"
-"Map data and GPS trackers for navigation","logistics"
-"Sorting facility for donated clothes and items","logistics"
-"Cleaning supplies for the community area","other"
-"Trash bags and waste management assistance","other"
-"Psychological support for trauma victims","other"
-"Information desk for finding missing persons","other"
-"Stationery and paper for data entry","other"
-"Battery packs and power banks for volunteers","other"
-"Translators for interacting with international teams","other"
-"Solar lamps for areas without electricity","other"
-"Legal advice for displaced families","other"
-"General labor for camp setup and maintenance","other"
+Suspected outbreak of fever in camp,medical
+Patient with severe bleeding needs hospital transfer,medical
+Surgical masks and gloves for clinic,medical
+Insulin and chronic medicine shortage in 82,medical
+Suspected outbreak of fever in camp,medical
+Insulin and chronic medicine shortage in 92,medical
+Suspected outbreak of fever in camp,medical
+Clean water for cleaning wounds,medical
+Clean water for cleaning wounds,medical
+Clean water for cleaning wounds,medical
+Need oxygen cylinders for patient at 60,medical
+Need oxygen cylinders for patient at 38,medical
+Doctor required for emergency surgery,medical
+Suspected outbreak of fever in camp,medical
+Insulin and chronic medicine shortage in 39,medical
+Patient with severe bleeding needs hospital transfer,medical
+Vaccination drive for kids in relief center,medical
+Vaccination drive for kids in relief center,medical
+Vaccination drive for kids in relief center,medical
+Need oxygen cylinders for patient at 31,medical
+Ambulance needed for heart attack victim,medical
+Surgical masks and gloves for clinic,medical
+Ambulance needed for heart attack victim,medical
+Ambulance needed for heart attack victim,medical
+Surgical masks and gloves for clinic,medical
+Dry rations and rice needed for 256 people,food
+Baby food and milk powder for infants,food
+Baby food and milk powder for infants,food
+Baby food and milk powder for infants,food
+Emergency food supplies for isolated village,food
+Baby food and milk powder for infants,food
+Dry rations and rice needed for 211 people,food
+Portable water tanks for distribution,food
+Biscuits and protein bars for energy,food
+Community kitchen needs cooking oil,food
+Fresh vegetables for nutrition,food
+Emergency food supplies for isolated village,food
+Community kitchen needs cooking oil,food
+Wheat flour and pulses for the camp,food
+Fresh vegetables for nutrition,food
+Biscuits and protein bars for energy,food
+Portable water tanks for distribution,food
+Baby food and milk powder for infants,food
+Community kitchen needs cooking oil,food
+Baby food and milk powder for infants,food
+Biscuits and protein bars for energy,food
+Community kitchen needs cooking oil,food
+Dry rations and rice needed for 359 people,food
+Community kitchen needs cooking oil,food
+Baby food and milk powder for infants,food
+Warm clothes for winter shelter,shelter
+Tarpaulin sheets for temporary roofing,shelter
+Hygiene kits and soap for camp,shelter
+Hygiene kits and soap for camp,shelter
+Warm clothes for winter shelter,shelter
+Tarpaulin sheets for temporary roofing,shelter
+Solar lamps for shelter lighting,shelter
+Hygiene kits and soap for camp,shelter
+Tarpaulin sheets for temporary roofing,shelter
+Sleeping mats and bags for 107 people,shelter
+Temporary roof covers for damaged homes,shelter
+Mosquito nets for outdoor sleepers,shelter
+Portable toilets for relief camp,shelter
+Portable toilets for relief camp,shelter
+Hygiene kits and soap for camp,shelter
+Hygiene kits and soap for camp,shelter
+Mosquito nets for outdoor sleepers,shelter
+Temporary roof covers for damaged homes,shelter
+Warm clothes for winter shelter,shelter
+Tents and blankets for displaced families,shelter
+Tarpaulin sheets for temporary roofing,shelter
+Tents and blankets for displaced families,shelter
+Hygiene kits and soap for camp,shelter
+Mosquito nets for outdoor sleepers,shelter
+Mosquito nets for outdoor sleepers,shelter
+Ropes and harnesses for mountain rescue,rescue
+Ladders and cutting tools for rescue,rescue
+Ropes and harnesses for mountain rescue,rescue
+Firefighters needed for warehouse fire,rescue
+Lifeguards for flooded streets,rescue
+Ladders and cutting tools for rescue,rescue
+Helicopter rescue for hilltop village,rescue
+Evacuation teams for coastal zone,rescue
+Sniffer dogs for search under debris,rescue
+People trapped in collapsed building at 24,rescue
+Flood rescue boats needed for stranded families,rescue
+Evacuation teams for coastal zone,rescue
+Sniffer dogs for search under debris,rescue
+Sniffer dogs for search under debris,rescue
+Sniffer dogs for search under debris,rescue
+Ropes and harnesses for mountain rescue,rescue
+Ropes and harnesses for mountain rescue,rescue
+Firefighters needed for warehouse fire,rescue
+People trapped in collapsed building at 41,rescue
+Ropes and harnesses for mountain rescue,rescue
+Sniffer dogs for search under debris,rescue
+Evacuation teams for coastal zone,rescue
+Flood rescue boats needed for stranded families,rescue
+Evacuation teams for coastal zone,rescue
+Ropes and harnesses for mountain rescue,rescue
+Map data and GPS trackers,logistics
+Satellite phones for communication,logistics
+Cargo planes unloading assistance,logistics
+Trucks needed to transport relief goods,logistics
+Coordinators for volunteer management,logistics
+Cargo planes unloading assistance,logistics
+Bus for evacuating senior citizens,logistics
+Map data and GPS trackers,logistics
+Cargo planes unloading assistance,logistics
+Satellite phones for communication,logistics
+Sorting facility for donated items,logistics
+Satellite phones for communication,logistics
+Fuel for generators and vehicles,logistics
+Bus for evacuating senior citizens,logistics
+Map data and GPS trackers,logistics
+Map data and GPS trackers,logistics
+Cargo planes unloading assistance,logistics
+Fuel for generators and vehicles,logistics
+Sorting facility for donated items,logistics
+Coordinators for volunteer management,logistics
+Satellite phones for communication,logistics
+Sorting facility for donated items,logistics
+Coordinators for volunteer management,logistics
+Forklifts for moving heavy crates,logistics
+Fuel for generators and vehicles,logistics
+Cleaning supplies for community area,other
+Psychological support for trauma victims,other
+Cleaning supplies for community area,other
+Power banks for volunteers,other
+General labor for camp maintenance,other
+General labor for camp maintenance,other
+Power banks for volunteers,other
+Power banks for volunteers,other
+Legal advice for displaced families,other
+Psychological support for trauma victims,other
+Trash bags and waste management,other
+Power banks for volunteers,other
+Psychological support for trauma victims,other
+Cleaning supplies for community area,other
+Board games for children in camp,other
+Stationery for data entry,other
+Cleaning supplies for community area,other
+Information desk for missing persons,other
+Stationery for data entry,other
+Board games for children in camp,other
+Power banks for volunteers,other
+Cleaning supplies for community area,other
+Translators for international teams,other
+Psychological support for trauma victims,other
+Information desk for missing persons,other

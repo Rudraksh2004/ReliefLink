@@ -1,121 +1,251 @@
 needCategory,urgencyScore,volunteerSkills,availability,distanceKm,matchLabel
-medical,10,medical,anytime,2,1
-medical,9,medical,weekdays,5,1
-medical,8,food distribution,anytime,1,0
-food,7,food distribution,anytime,3,1
-food,5,general support,weekends,10,1
-rescue,10,rescue,anytime,1,1
-rescue,9,logistics,anytime,30,0
-logistics,6,logistics,anytime,5,1
-shelter,8,general support,weekends,2,1
-shelter,4,medical,anytime,15,0
-other,3,general support,anytime,1,1
-medical,10,medical,weekends,20,0
-rescue,10,rescue,anytime,4,1
-food,8,food distribution,weekdays,12,0
-logistics,7,logistics,anytime,2,1
-medical,5,medical,anytime,40,0
-food,4,general support,anytime,5,1
-rescue,8,rescue,weekdays,2,1
-shelter,9,general support,anytime,1,1
-other,2,logistics,weekends,8,0
-medical,10,medical,anytime,1,1
-medical,7,medical,anytime,5,1
-medical,8,medical,anytime,2,1
-medical,9,medical,anytime,3,1
-medical,6,medical,anytime,10,1
-food,10,food distribution,anytime,2,1
-food,9,food distribution,anytime,1,1
-food,8,food distribution,anytime,5,1
-food,7,food distribution,anytime,4,1
-food,6,food distribution,anytime,8,1
-rescue,10,rescue,anytime,3,1
-rescue,9,rescue,anytime,2,1
-rescue,8,rescue,anytime,1,1
-rescue,7,rescue,anytime,5,1
-rescue,6,rescue,anytime,10,1
-logistics,10,logistics,anytime,2,1
-logistics,9,logistics,anytime,1,1
-logistics,8,logistics,anytime,5,1
-logistics,7,logistics,anytime,4,1
-logistics,6,logistics,anytime,8,1
-shelter,10,general support,anytime,2,1
-shelter,9,general support,anytime,1,1
-shelter,8,general support,anytime,5,1
-shelter,7,general support,anytime,4,1
-shelter,6,general support,anytime,8,1
-medical,10,logistics,anytime,2,0
-medical,9,food distribution,anytime,1,0
-medical,8,rescue,anytime,5,0
-medical,7,general support,anytime,4,0
-food,10,medical,anytime,8,0
-food,9,rescue,anytime,2,0
-food,8,logistics,anytime,1,0
-food,7,general support,anytime,5,0
-rescue,10,medical,anytime,4,0
-rescue,9,food distribution,anytime,8,0
-rescue,8,logistics,anytime,2,0
-rescue,7,general support,anytime,1,0
-logistics,10,medical,anytime,5,0
-logistics,9,food distribution,anytime,4,0
-logistics,8,rescue,anytime,8,0
-logistics,7,general support,anytime,2,0
-shelter,10,medical,anytime,1,0
-shelter,9,food distribution,anytime,5,0
-shelter,8,rescue,anytime,4,0
-shelter,7,logistics,anytime,8,0
-medical,10,medical,anytime,45,0
-medical,10,medical,anytime,60,0
-medical,10,medical,anytime,100,0
-food,10,food distribution,anytime,50,0
-food,10,food distribution,anytime,75,0
-rescue,10,rescue,anytime,40,0
-rescue,10,rescue,anytime,55,0
-logistics,10,logistics,anytime,80,0
-logistics,10,logistics,anytime,90,0
-shelter,10,general support,anytime,70,0
-medical,1,medical,anytime,1,1
-medical,2,medical,anytime,2,1
-medical,3,medical,anytime,3,1
-food,1,food distribution,anytime,1,1
-food,2,food distribution,anytime,2,1
-food,3,food distribution,anytime,3,1
-rescue,1,rescue,anytime,1,1
-rescue,2,rescue,anytime,2,1
-rescue,3,rescue,anytime,3,1
-logistics,1,logistics,anytime,1,1
-logistics,2,logistics,anytime,2,1
-logistics,3,logistics,anytime,3,1
-shelter,1,general support,anytime,1,1
-shelter,2,general support,anytime,2,1
-shelter,3,general support,anytime,3,1
-medical,10,medical,weekends,2,1
-medical,10,medical,weekdays,2,1
-food,10,food distribution,weekends,2,1
-food,10,food distribution,weekdays,2,1
-rescue,10,rescue,weekends,2,1
-rescue,10,rescue,weekdays,2,1
-logistics,10,logistics,weekends,2,1
-logistics,10,logistics,weekdays,2,1
-shelter,10,general support,weekends,2,1
-shelter,10,general support,weekdays,2,1
-medical,5,medical,weekends,15,0
-food,5,food distribution,weekdays,15,0
-rescue,5,rescue,weekends,15,0
-logistics,5,logistics,weekdays,15,0
-shelter,5,general support,weekends,15,0
-medical,8,medical,anytime,25,1
-food,8,food distribution,anytime,25,1
-rescue,8,rescue,anytime,25,1
-logistics,8,logistics,anytime,25,1
-shelter,8,general support,anytime,25,1
-medical,9,medical,anytime,35,0
-food,9,food distribution,anytime,35,0
-rescue,9,rescue,anytime,35,0
-logistics,9,logistics,anytime,35,0
-shelter,9,general support,anytime,35,0
-medical,7,medical,weekends,5,1
-food,7,food distribution,weekdays,5,1
-rescue,7,rescue,anytime,30,0
-logistics,4,logistics,anytime,12,1
-shelter,6,general support,weekdays,3,1
+other,5,food distribution,weekdays,38.41,0
+food,5,general support,weekends,29.73,0
+medical,2,medical,weekdays,18.09,1
+medical,8,medical,weekends,28.26,1
+medical,9,food distribution,weekends,34.32,0
+food,6,food distribution,weekends,36.16,1
+medical,2,coordination,weekends,40.69,0
+food,4,rescue,weekdays,43.65,0
+shelter,6,rescue,weekdays,1.2,1
+shelter,8,transport,weekends,49.76,0
+shelter,6,medical,weekdays,20.93,0
+food,10,transport,weekdays,19.5,0
+other,1,medical,weekends,8.33,0
+logistics,5,food distribution,weekends,48.35,0
+rescue,8,food distribution,anytime,29.88,0
+other,10,food distribution,anytime,35.12,1
+other,6,coordination,weekends,41.86,0
+food,3,coordination,weekends,44.67,0
+other,7,rescue,weekdays,45.91,0
+other,6,rescue,weekdays,35.73,0
+food,6,food distribution,weekdays,17.28,1
+food,2,medical,anytime,32.13,0
+medical,8,rescue,weekends,33.58,0
+food,6,general support,weekdays,26.13,0
+other,3,general support,anytime,19.91,0
+food,2,transport,weekends,23.72,0
+food,7,transport,anytime,38.69,0
+food,8,food distribution,weekdays,28.68,1
+medical,8,rescue,weekends,8.05,1
+shelter,3,food distribution,weekends,49.15,0
+other,7,coordination,anytime,44.29,0
+medical,10,food distribution,weekends,36.19,0
+logistics,7,general support,anytime,28.64,0
+shelter,3,transport,weekdays,26.85,0
+rescue,3,transport,weekdays,47.26,0
+logistics,3,rescue,weekends,21.79,0
+shelter,8,food distribution,weekdays,43.57,0
+logistics,1,medical,weekdays,33.31,0
+medical,4,medical,weekends,36.13,0
+other,2,general support,weekends,1.95,0
+other,10,transport,weekends,0.85,1
+other,6,rescue,weekends,1.76,1
+logistics,5,medical,anytime,25.64,0
+medical,9,transport,weekends,32.99,0
+shelter,8,medical,weekends,37.73,0
+shelter,4,food distribution,weekends,41.51,0
+food,6,general support,weekends,14.46,0
+food,5,rescue,weekdays,26.49,0
+logistics,4,general support,weekdays,22.29,0
+other,10,rescue,weekends,36.03,0
+other,8,coordination,anytime,11.66,1
+medical,10,medical,weekdays,12.16,1
+medical,2,general support,anytime,7.01,1
+shelter,10,coordination,anytime,44.95,1
+shelter,8,rescue,weekdays,18.5,0
+other,3,rescue,weekdays,20.16,0
+shelter,7,medical,weekends,8.63,1
+rescue,1,food distribution,anytime,9.04,1
+rescue,1,rescue,weekends,31.43,0
+food,6,food distribution,weekends,42.67,1
+rescue,9,medical,weekends,11.17,0
+rescue,7,transport,anytime,27.54,0
+medical,7,medical,weekends,0.14,1
+logistics,2,transport,weekends,37.73,0
+other,5,rescue,anytime,2.77,1
+shelter,9,rescue,anytime,3.24,1
+logistics,4,transport,weekends,46.98,0
+medical,8,rescue,weekdays,5.54,1
+food,8,coordination,weekends,42.94,0
+food,4,coordination,weekdays,31.51,0
+other,9,medical,weekdays,21.9,0
+rescue,8,general support,weekends,0.78,1
+shelter,7,medical,weekdays,48.53,0
+logistics,1,food distribution,anytime,38.14,0
+logistics,10,coordination,weekends,17.85,0
+rescue,8,food distribution,weekends,0.6,1
+rescue,9,food distribution,weekends,5.71,1
+shelter,2,general support,weekdays,8.14,0
+rescue,5,food distribution,anytime,28.07,0
+medical,10,transport,weekends,47.96,0
+logistics,2,coordination,anytime,11.5,0
+rescue,2,rescue,anytime,7.68,1
+other,6,rescue,anytime,49.19,0
+medical,3,medical,anytime,2.51,1
+other,1,food distribution,weekends,46.94,0
+other,10,transport,weekdays,34.32,0
+other,4,coordination,weekdays,38.55,0
+other,9,rescue,anytime,40.41,0
+other,8,transport,weekdays,6.59,1
+other,4,food distribution,anytime,19.29,0
+shelter,8,coordination,anytime,11.14,1
+logistics,6,rescue,weekends,3.64,1
+shelter,4,rescue,weekdays,23.56,0
+food,9,medical,weekdays,0.7,1
+other,7,general support,weekdays,39.73,0
+shelter,3,rescue,weekends,34.44,0
+food,2,general support,weekends,34.74,0
+shelter,5,food distribution,weekdays,3.02,0
+medical,2,rescue,weekends,21.24,0
+logistics,4,medical,weekends,42.85,0
+rescue,6,general support,anytime,4.12,1
+logistics,4,medical,weekends,36.7,0
+logistics,2,medical,weekends,11.63,0
+medical,1,transport,weekends,4.66,0
+medical,9,coordination,anytime,7.86,1
+shelter,9,general support,anytime,46.75,0
+food,9,rescue,weekdays,18.77,0
+logistics,6,general support,weekdays,4.45,1
+medical,7,food distribution,anytime,46.93,0
+logistics,1,rescue,anytime,3.47,1
+food,9,transport,anytime,22.39,1
+shelter,4,food distribution,weekdays,7.78,0
+medical,1,general support,weekdays,49.71,0
+food,6,transport,anytime,1.67,1
+logistics,5,transport,anytime,17.86,1
+other,5,medical,anytime,29.02,0
+shelter,6,medical,weekends,7.36,1
+other,5,general support,weekdays,28.18,0
+medical,6,transport,weekdays,16.64,0
+food,10,food distribution,weekends,40.62,1
+other,8,medical,anytime,23.84,1
+rescue,8,transport,anytime,13.87,1
+shelter,8,coordination,anytime,27.1,0
+food,6,coordination,anytime,4.15,1
+logistics,10,coordination,weekends,11.35,0
+logistics,7,medical,weekends,10.22,0
+shelter,8,medical,weekends,24.18,0
+food,10,transport,anytime,26.5,1
+rescue,2,rescue,weekends,43.41,0
+shelter,6,general support,anytime,30.96,0
+logistics,4,general support,anytime,18.53,0
+other,5,coordination,weekdays,17.81,0
+medical,6,food distribution,weekdays,3.39,1
+rescue,9,medical,anytime,26.29,0
+food,8,rescue,anytime,7.52,1
+other,2,general support,anytime,27.43,0
+rescue,8,rescue,weekdays,27.38,1
+other,5,rescue,weekends,43.83,0
+food,5,rescue,anytime,45.1,0
+logistics,6,transport,weekdays,21.94,1
+logistics,3,general support,weekends,37.27,0
+food,8,transport,weekends,38.12,0
+medical,7,general support,anytime,37.2,0
+logistics,2,coordination,weekdays,9.5,0
+food,9,coordination,weekdays,36.71,0
+medical,10,coordination,weekends,5.77,1
+shelter,2,coordination,weekdays,20.09,0
+logistics,1,transport,anytime,29.74,1
+food,7,general support,anytime,15.67,1
+other,3,general support,weekdays,32.1,0
+rescue,8,general support,anytime,30.55,0
+food,8,food distribution,weekdays,15.14,1
+logistics,3,rescue,weekdays,27.46,0
+food,7,food distribution,anytime,24.93,1
+rescue,2,coordination,anytime,19.57,0
+other,8,medical,weekdays,23.96,0
+shelter,4,coordination,weekends,9.68,0
+rescue,10,rescue,weekdays,0.91,1
+rescue,5,coordination,weekdays,10.96,0
+other,8,transport,anytime,0.67,1
+rescue,9,transport,anytime,47.41,0
+medical,3,rescue,weekends,5.36,0
+shelter,10,food distribution,weekends,41.25,0
+other,2,transport,weekdays,46.11,0
+rescue,6,food distribution,weekdays,19.09,0
+rescue,10,rescue,weekends,9.35,1
+rescue,5,coordination,weekends,43.47,0
+logistics,9,rescue,weekdays,5.46,1
+shelter,9,coordination,weekends,30.57,0
+shelter,10,transport,weekends,16.96,0
+rescue,9,general support,weekends,1.18,1
+shelter,2,transport,weekdays,31.53,0
+other,8,rescue,anytime,26.95,0
+rescue,9,transport,weekdays,19.47,0
+logistics,3,rescue,weekends,43.28,0
+shelter,9,general support,anytime,2.85,1
+food,1,rescue,weekends,10.19,0
+logistics,5,medical,anytime,0.23,1
+rescue,10,food distribution,weekends,42.6,0
+food,9,medical,weekdays,24.45,0
+logistics,5,transport,weekdays,15.85,1
+food,2,general support,weekends,30.36,0
+rescue,5,transport,anytime,27.15,0
+medical,7,transport,weekends,27.07,0
+logistics,1,food distribution,weekdays,5.59,0
+medical,2,coordination,weekdays,43.04,0
+rescue,6,food distribution,weekdays,35.2,0
+food,1,coordination,weekdays,47.01,0
+rescue,5,general support,weekdays,35.18,0
+shelter,2,medical,weekends,36.83,0
+other,4,medical,weekends,12.02,0
+logistics,2,medical,anytime,12.87,0
+other,3,rescue,anytime,36.55,0
+food,3,transport,weekends,6.52,0
+logistics,9,medical,anytime,22.45,1
+other,2,coordination,weekdays,3.38,0
+shelter,6,coordination,anytime,44.21,0
+medical,8,medical,weekends,24.23,1
+shelter,9,general support,weekends,17.58,0
+logistics,5,rescue,weekdays,17.75,0
+rescue,9,transport,weekends,35.36,0
+shelter,10,transport,weekends,34.09,0
+rescue,8,food distribution,weekends,25.99,0
+medical,3,general support,weekends,48.08,0
+logistics,4,rescue,anytime,29.34,0
+logistics,2,rescue,weekends,5.94,0
+other,6,coordination,weekends,3.81,1
+other,7,general support,anytime,12.99,1
+logistics,2,food distribution,weekends,25.25,0
+food,9,medical,weekends,43.72,0
+other,9,transport,weekends,20.72,0
+medical,4,food distribution,weekends,18.44,0
+rescue,9,general support,weekdays,9.41,1
+medical,4,rescue,weekdays,43.41,0
+other,2,medical,weekends,22.27,0
+other,7,coordination,weekdays,17.1,0
+medical,10,transport,weekends,48.65,0
+rescue,3,coordination,weekdays,34.91,0
+logistics,1,rescue,weekends,46.02,0
+shelter,8,food distribution,weekends,19.45,0
+medical,3,coordination,anytime,42.13,0
+other,7,medical,anytime,29.18,0
+rescue,5,transport,anytime,26.51,0
+shelter,8,general support,weekdays,0.81,1
+rescue,10,medical,weekends,13.77,0
+shelter,9,coordination,weekends,35.09,0
+other,1,transport,weekdays,35.32,0
+medical,1,food distribution,anytime,22.9,0
+food,6,transport,anytime,24.28,1
+food,5,coordination,weekdays,3.85,0
+other,3,rescue,weekdays,43.74,0
+food,2,medical,anytime,21.09,0
+shelter,1,food distribution,weekends,28.45,0
+logistics,10,coordination,weekends,1.93,1
+medical,6,food distribution,weekends,11.29,0
+shelter,1,medical,weekends,16.26,0
+rescue,7,transport,weekends,3.8,1
+medical,10,general support,weekends,43.58,0
+logistics,8,rescue,anytime,22.03,1
+shelter,8,transport,weekdays,15.05,0
+medical,10,rescue,weekends,39.68,0
+shelter,6,transport,anytime,9.18,1
+medical,5,food distribution,weekends,44.77,0
+shelter,2,food distribution,anytime,9.67,1
+shelter,3,coordination,weekends,23.88,0
+food,1,transport,weekends,8.8,0
+medical,10,rescue,weekdays,32.04,0
+logistics,5,general support,weekends,5.99,0
+logistics,8,food distribution,anytime,19.16,1
+logistics,4,transport,weekdays,5.23,1

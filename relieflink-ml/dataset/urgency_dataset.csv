@@ -1,81 +1,201 @@
 description,peopleAffected,category,urgencyScore
-"Massive flood, people on rooftops","250","rescue",10
-"Heart attack victim, no pulse","1","medical",10
-"Shelter camp destroyed by fire","500","shelter",10
-"Infants without milk for 48 hours","40","food",9
-"Severely injured people in car crash","5","medical",9
-"Earthquake survivors trapped in basement","12","rescue",10
-"No drinking water for entire village","1000","food",8
-"Tents needed for winter storm","200","shelter",8
-"Urgent surgical supplies for field hospital","100","medical",9
-"Rescue boats needed for rising water level","300","rescue",9
-"Daily ration for refugee camp","5000","food",7
-"Blankets for orphans in cold region","50","shelter",6
-"Oxygen cylinders for covid ward","20","medical",9
-"Bridge collapsed, village cut off","150","logistics",7
-"Search and rescue for missing hikers","3","rescue",5
-"Logistics support for food distribution","1000","logistics",4
-"General volunteers for cleaning","10","other",2
-"Trash collection in camp area","200","other",3
-"Psychological help for trauma victims","30","other",5
-"Communication equipment for rescue teams","50","logistics",6
-"Expired medicine disposal","1","medical",3
-"Minor cuts and bruises","10","medical",2
-"Routine checkup for elderly","5","medical",3
-"Broken leg after fall","1","medical",5
-"Bleeding from head injury","1","medical",8
-"Fever outbreak in camp","50","medical",7
-"Water purification tablets needed","500","food",6
-"Canned food for isolated families","100","food",5
-"Baby diapers and hygiene kits","200","other",4
-"Temporary toilets for camp","300","shelter",7
-"Tarpaulin for leaking roofs","150","shelter",5
-"Mosquito nets for malaria zone","400","medical",6
-"Fuel for hospital generators","1","logistics",8
-"Trucks for moving rice bags","10","logistics",4
-"Flashlights for night patrol","20","rescue",4
-"Ropes for climbing rescue","5","rescue",6
-"Translation services for foreign docs","10","other",3
-"Data entry for missing persons","1","other",4
-"Legal aid for land disputes","1","other",2
-"Social worker for kids","20","other",4
-"Large scale fire in slum","1000","rescue",10
-"Building collapse with 20 trapped","20","rescue",10
-"Gas leak in residential area","500","rescue",9
-"Ambulance blocked in traffic","1","medical",7
-"Dead bodies recovery","10","other",8
-"Refrigeration for vaccines","1000","medical",9
-"Stretcher for injured person","1","medical",4
-"Wheelchair for disabled senior","1","medical",3
-"Cooked meals for 50 people","50","food",4
-"Dry fruit and nuts for energy","100","food",3
-"Kitchen utensils for camp","200","other",2
-"Clothes for flood victims","1000","shelter",5
-"Sleeping mats for school shelter","60","shelter",4
-"Pillows and bedsheets","100","shelter",3
-"Soap and shampoo for hygiene","500","other",2
-"Sanitary pads for women","300","medical",6
-"Batteries for satellite phones","10","logistics",5
-"GPS devices for navigators","5","logistics",4
-"Cargo planes unloading support","1","logistics",6
-"Railway station help desk","100","other",3
-"Bus for evacuating seniors","40","logistics",7
-"Bicycle for local delivery","1","logistics",2
-"Radio broadcast for alerts","5000","other",7
-"Newspaper for camp info","1000","other",1
-"Stationery for school tent","50","other",2
-"Board games for children","30","other",1
-"Soccer ball for recreation","20","other",1
-"Library books for camp","100","other",1
-"Prayer mats for camp","200","other",2
-"Mirror and grooming kits","50","other",1
-"Chairs for meeting room","20","other",2
-"Table for registration","1","other",2
-"Umbrellas for rainy season","100","other",3
-"Raincoats for rescue teams","50","rescue",6
-"Safety boots for debris removal","30","rescue",5
-"Gloves and helmets for workers","50","logistics",4
-"High visibility vests","100","logistics",3
-"Toolkits for fixing tents","20","shelter",4
-"Nails and hammers","10","shelter",3
-"Paint for marking safe zones","5","other",2
+Dry rations and rice needed for 5 people,5,food,3
+Temporary roof covers for damaged homes,520,shelter,9
+Board games for children in camp,353,other,4
+Power banks for volunteers,354,other,4
+Baby food and milk powder for infants,488,food,7
+Map data and GPS trackers,600,logistics,7
+Baby food and milk powder for infants,476,food,7
+Fresh vegetables for nutrition,378,food,6
+Clean water for cleaning wounds,114,medical,7
+Insulin and chronic medicine shortage in 58,122,medical,7
+Emergency first aid kit required for 852 injured,852,medical,10
+Portable toilets for relief camp,65,shelter,4
+Flood rescue boats needed for stranded families,275,rescue,8
+Patient with severe bleeding needs hospital transfer,451,medical,10
+Forklifts for moving heavy crates,606,logistics,7
+Doctor required for emergency surgery,824,medical,10
+Need oxygen cylinders for patient at 14,821,medical,10
+Biscuits and protein bars for energy,407,food,7
+Fresh vegetables for nutrition,230,food,5
+Need oxygen cylinders for patient at 24,404,medical,10
+Emergency first aid kit required for 376 injured,376,medical,10
+Ropes and harnesses for mountain rescue,113,rescue,7
+Forklifts for moving heavy crates,649,logistics,7
+Clean drinking water shortage in sector 86,986,food,8
+Patient with severe bleeding needs hospital transfer,38,medical,6
+Baby food and milk powder for infants,639,food,8
+Vaccination drive for kids in relief center,817,medical,10
+Flood rescue boats needed for stranded families,320,rescue,10
+Legal advice for displaced families,288,other,3
+Emergency first aid kit required for 736 injured,736,medical,10
+Temporary roof covers for damaged homes,720,shelter,9
+Sniffer dogs for search under debris,171,rescue,7
+Ladders and cutting tools for rescue,255,rescue,8
+Satellite phones for communication,184,logistics,3
+Warehouse space for medicine storage,669,logistics,7
+Ladders and cutting tools for rescue,556,rescue,10
+Bus for evacuating senior citizens,540,logistics,7
+Firefighters needed for warehouse fire,310,rescue,10
+Map data and GPS trackers,234,logistics,4
+Ropes and harnesses for mountain rescue,384,rescue,10
+Biscuits and protein bars for energy,14,food,3
+Flood rescue boats needed for stranded families,757,rescue,10
+Need space in community hall for shelter,662,shelter,9
+Solar lamps for shelter lighting,614,shelter,9
+Solar lamps for shelter lighting,753,shelter,9
+Translators for international teams,793,other,6
+Portable water tanks for distribution,38,food,3
+Ambulance needed for heart attack victim,43,medical,6
+Surgical masks and gloves for clinic,790,medical,10
+Satellite phones for communication,657,logistics,7
+Bus for evacuating senior citizens,73,logistics,2
+Trucks needed to transport relief goods,402,logistics,6
+Fuel for generators and vehicles,383,logistics,5
+Ready to eat meals for rescue teams,4,food,3
+Tents and blankets for displaced families,929,shelter,9
+Trash bags and waste management,74,other,1
+Board games for children in camp,675,other,6
+Trucks needed to transport relief goods,957,logistics,7
+Wheat flour and pulses for the camp,433,food,7
+Trash bags and waste management,169,other,2
+Information desk for missing persons,238,other,3
+Surgical masks and gloves for clinic,472,medical,10
+Solar lamps for shelter lighting,298,shelter,6
+Suspected outbreak of fever in camp,209,medical,8
+Mosquito nets for outdoor sleepers,777,shelter,9
+People trapped in collapsed building at 31,870,rescue,10
+Sleeping mats and bags for 422 people,422,shelter,8
+Doctor required for emergency surgery,973,medical,10
+Wheat flour and pulses for the camp,537,food,8
+Doctor required for emergency surgery,56,medical,6
+Cleaning supplies for community area,921,other,6
+Flood rescue boats needed for stranded families,139,rescue,7
+People trapped in collapsed building at 6,487,rescue,10
+Biscuits and protein bars for energy,597,food,8
+Fresh vegetables for nutrition,692,food,8
+Evacuation teams for coastal zone,738,rescue,10
+Flood rescue boats needed for stranded families,503,rescue,10
+Legal advice for displaced families,540,other,6
+Warehouse space for medicine storage,559,logistics,7
+Information desk for missing persons,28,other,1
+Forklifts for moving heavy crates,272,logistics,4
+Sorting facility for donated items,555,logistics,7
+Biscuits and protein bars for energy,276,food,5
+Baby food and milk powder for infants,599,food,8
+Portable toilets for relief camp,671,shelter,9
+Warehouse space for medicine storage,123,logistics,3
+Tarpaulin sheets for temporary roofing,743,shelter,9
+Portable toilets for relief camp,277,shelter,6
+Power banks for volunteers,353,other,4
+People trapped in collapsed building at 58,260,rescue,8
+Hygiene kits and soap for camp,532,shelter,9
+Divers for river search operation,85,rescue,6
+Legal advice for displaced families,604,other,6
+Wheat flour and pulses for the camp,347,food,6
+Vaccination drive for kids in relief center,936,medical,10
+Warm clothes for winter shelter,29,shelter,4
+Clean water for cleaning wounds,453,medical,10
+Lifeguards for flooded streets,840,rescue,10
+Stationery for data entry,73,other,1
+Sniffer dogs for search under debris,889,rescue,10
+Ropes and harnesses for mountain rescue,949,rescue,10
+Wheat flour and pulses for the camp,24,food,3
+Clean drinking water shortage in sector 16,148,food,4
+Coordinators for volunteer management,137,logistics,3
+Stationery for data entry,353,other,4
+Information desk for missing persons,397,other,4
+Biscuits and protein bars for energy,179,food,4
+Tarpaulin sheets for temporary roofing,843,shelter,9
+Temporary roof covers for damaged homes,697,shelter,9
+Clean drinking water shortage in sector 91,703,food,8
+Patient with severe bleeding needs hospital transfer,493,medical,10
+Bus for evacuating senior citizens,45,logistics,2
+Tents and blankets for displaced families,265,shelter,6
+Need space in community hall for shelter,989,shelter,9
+Vaccination drive for kids in relief center,891,medical,10
+Ropes and harnesses for mountain rescue,135,rescue,7
+Warehouse space for medicine storage,208,logistics,4
+Insulin and chronic medicine shortage in 20,53,medical,6
+Emergency first aid kit required for 909 injured,909,medical,10
+Tents and blankets for displaced families,372,shelter,7
+Clean water for cleaning wounds,507,medical,10
+Emergency food supplies for isolated village,847,food,8
+Solar lamps for shelter lighting,422,shelter,8
+Community kitchen needs cooking oil,488,food,7
+Firefighters needed for warehouse fire,617,rescue,10
+Doctor required for emergency surgery,857,medical,10
+Sorting facility for donated items,514,logistics,7
+Clean drinking water shortage in sector 63,513,food,8
+Tents and blankets for displaced families,620,shelter,9
+Portable toilets for relief camp,279,shelter,6
+Ropes and harnesses for mountain rescue,93,rescue,6
+Tarpaulin sheets for temporary roofing,148,shelter,5
+Flood rescue boats needed for stranded families,763,rescue,10
+Power banks for volunteers,569,other,6
+Temporary roof covers for damaged homes,109,shelter,5
+Cargo planes unloading assistance,23,logistics,2
+Patient with severe bleeding needs hospital transfer,134,medical,7
+Ready to eat meals for rescue teams,307,food,6
+Hygiene kits and soap for camp,146,shelter,5
+Sleeping mats and bags for 262 people,262,shelter,6
+Firefighters needed for warehouse fire,162,rescue,7
+Tents and blankets for displaced families,927,shelter,9
+Flood rescue boats needed for stranded families,361,rescue,10
+Hygiene kits and soap for camp,139,shelter,5
+Portable water tanks for distribution,233,food,5
+Information desk for missing persons,793,other,6
+Mosquito nets for outdoor sleepers,3,shelter,4
+Surgical masks and gloves for clinic,319,medical,10
+Power banks for volunteers,826,other,6
+Ambulance needed for heart attack victim,945,medical,10
+Satellite phones for communication,876,logistics,7
+Trash bags and waste management,110,other,2
+Hygiene kits and soap for camp,998,shelter,9
+Need oxygen cylinders for patient at 31,404,medical,10
+Cargo planes unloading assistance,161,logistics,3
+Mosquito nets for outdoor sleepers,987,shelter,9
+Satellite phones for communication,247,logistics,4
+Sorting facility for donated items,669,logistics,7
+Cargo planes unloading assistance,634,logistics,7
+Community kitchen needs cooking oil,755,food,8
+General labor for camp maintenance,216,other,3
+Fresh vegetables for nutrition,456,food,7
+Baby food and milk powder for infants,919,food,8
+Map data and GPS trackers,209,logistics,4
+Need space in community hall for shelter,26,shelter,4
+Baby food and milk powder for infants,412,food,7
+Fuel for generators and vehicles,362,logistics,5
+Helicopter rescue for hilltop village,356,rescue,10
+Cargo planes unloading assistance,121,logistics,3
+Board games for children in camp,109,other,2
+Doctor required for emergency surgery,539,medical,10
+Sorting facility for donated items,5,logistics,2
+Suspected outbreak of fever in camp,152,medical,7
+Helicopter rescue for hilltop village,589,rescue,10
+Portable water tanks for distribution,213,food,5
+Ambulance needed for heart attack victim,113,medical,7
+Doctor required for emergency surgery,647,medical,10
+Suspected outbreak of fever in camp,959,medical,10
+Doctor required for emergency surgery,421,medical,10
+Doctor required for emergency surgery,427,medical,10
+Sorting facility for donated items,176,logistics,3
+Clean water for cleaning wounds,185,medical,7
+Need oxygen cylinders for patient at 72,414,medical,10
+Emergency food supplies for isolated village,947,food,8
+Patient with severe bleeding needs hospital transfer,287,medical,8
+Suspected outbreak of fever in camp,697,medical,10
+Baby food and milk powder for infants,531,food,8
+Helicopter rescue for hilltop village,294,rescue,8
+Trucks needed to transport relief goods,968,logistics,7
+Warehouse space for medicine storage,703,logistics,7
+Patient with severe bleeding needs hospital transfer,67,medical,6
+Sniffer dogs for search under debris,812,rescue,10
+Patient with severe bleeding needs hospital transfer,993,medical,10
+Emergency food supplies for isolated village,606,food,8
+Warm clothes for winter shelter,111,shelter,5
+Mosquito nets for outdoor sleepers,405,shelter,8
+Divers for river search operation,528,rescue,10
+Forklifts for moving heavy crates,865,logistics,7
+Patient with severe bleeding needs hospital transfer,31,medical,6
+Biscuits and protein bars for energy,709,food,8
