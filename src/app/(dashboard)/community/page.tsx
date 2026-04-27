@@ -104,6 +104,12 @@ export default function CommunityUserDashboard() {
                   </div>
                 </div>
 
+                {need.imageUrl && (
+                  <div className="mb-6 rounded-2xl overflow-hidden h-32 border border-gray-100 dark:border-neutral-800">
+                    <img src={need.imageUrl} alt={need.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                  </div>
+                )}
+
                 <div className="flex items-center justify-between pt-6 border-t border-gray-100 dark:border-neutral-800">
                   <div className="flex items-center -space-x-2">
                     {[1, 2, 3].map(i => (

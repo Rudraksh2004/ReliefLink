@@ -110,6 +110,11 @@ export default function VolunteerDashboard() {
                         </div>
                       </div>
                       <p className="text-gray-500 text-sm leading-relaxed line-clamp-2">{need?.description}</p>
+                      {need?.imageUrl && (
+                        <div className="mt-4 rounded-2xl overflow-hidden h-40 border border-gray-100 dark:border-neutral-800">
+                          <img src={need.imageUrl} alt={need.title} className="w-full h-full object-cover" />
+                        </div>
+                      )}
                     </div>
 
                     <div className="flex flex-row md:flex-col justify-end gap-3 min-w-[200px]">

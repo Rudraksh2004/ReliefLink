@@ -31,5 +31,6 @@ export interface CommunityNeed {
   reporterName?: string;
   reporterPhone?: string;
   reporterId?: string;
+  imageUrl?: string;
   submittedByRole: "community_user" | "volunteer" | "admin";
 }

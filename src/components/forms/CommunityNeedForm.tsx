@@ -15,8 +15,10 @@ import { predictCategory, predictUrgency, predictMatch, predictRegionPriority } 
 import { AssignmentStatus } from "@/types/assignment";
 import { PriorityLevel } from "@/types/regionPriorityScore";
 import { Button } from "@/components/ui/Button";
-import { MapPin, Loader2 } from "lucide-react";
+import { MapPin, Loader2, Camera, X, Image as ImageIcon } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { storage } from "@/lib/firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 interface FormState {
   title: string;
@@ -49,6 +51,11 @@ export const CommunityNeedForm = () => {
   const [detectingLocation, setDetectingLocation] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  
+  // Image upload states
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   const handleDetectLocation = () => {
     if (!navigator.geolocation) {
@@ -58,6 +65,47 @@ export const CommunityNeedForm = () => {
 
     setDetectingLocation(true);
     setError(null);
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        setError("Image size should be less than 5MB");
+        return;
+      }
+      setImageFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const clearImage = () => {
+    setImageFile(null);
+    setImagePreview(null);
+  };
+
+  const uploadImage = async (): Promise<string | null> => {
+    if (!imageFile) return null;
+    
+    setUploadingImage(true);
+    try {
+      const timestamp = Date.now();
+      const fileName = `${timestamp}-${imageFile.name}`;
+      const storageRef = ref(storage, `community_needs/${fileName}`);
+      const snapshot = await uploadBytes(storageRef, imageFile);
+      const downloadURL = await getDownloadURL(snapshot.ref);
+      return downloadURL;
+    } catch (err) {
+      console.error("Image upload error:", err);
+      throw new Error("Image upload failed. Please try again.");
+    } finally {
+      setUploadingImage(false);
+    }
+  };
 
     navigator.geolocation.getCurrentPosition(
       async (position) => {
@@ -232,6 +280,12 @@ export const CommunityNeedForm = () => {
 
     setLoading(true);
     try {
+      // --- STEP 0: IMAGE UPLOAD ---
+      let imageUrl = "";
+      if (imageFile) {
+        imageUrl = await uploadImage() || "";
+      }
+
       // --- STEP 1: ML-POWERED CATEGORY PREDICTION ---
       const predictedCategory = await predictCategory(formData.description);
       const finalData = {
@@ -244,12 +298,15 @@ export const CommunityNeedForm = () => {
         urgencyScore: 0,
         status: CommunityNeedStatus.PENDING,
         reporterId: user?.uid || "anonymous",
+        imageUrl,
       } as any);
 
       setSuccess(true);
-      const submittedData = { ...finalData }; // Capture data before reset
+      const submittedData = { ...finalData, imageUrl }; // Capture data before reset
       setFormData(initialState);
-      await handleAfterSubmit(result.id, submittedData);
+      setImageFile(null);
+      setImagePreview(null);
+      await handleAfterSubmit(result.id, submittedData as any);
     } catch (err) {
       console.error("Submission error:", err);
       setError("Failed to submit request. Please check your connection.");
@@ -384,6 +441,42 @@ export const CommunityNeedForm = () => {
                 disabled={detectingLocation}
                 className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-neutral-800 bg-transparent focus:ring-2 focus:ring-blue-500 outline-none transition-all disabled:bg-gray-50 dark:disabled:bg-neutral-800/50"
               />
+            </div>
+          </div>
+          
+          <div className="pt-4 border-t border-gray-100 dark:border-neutral-800">
+            <h3 className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">Visual Documentation (Optional)</h3>
+            <div className="space-y-4">
+              <div className="relative">
+                {imagePreview ? (
+                  <div className="relative group w-full h-48 rounded-2xl overflow-hidden border border-gray-200 dark:border-neutral-800">
+                    <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <button 
+                        type="button" 
+                        onClick={clearImage}
+                        className="p-2 bg-red-600 text-white rounded-full hover:scale-110 transition-transform"
+                      >
+                        <X className="w-5 h-5" />
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <label className="flex flex-col items-center justify-center w-full h-32 rounded-2xl border-2 border-dashed border-gray-200 dark:border-neutral-800 hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/10 transition-all cursor-pointer group">
+                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                      <Camera className="w-8 h-8 text-gray-400 group-hover:text-blue-600 mb-2 transition-colors" />
+                      <p className="text-xs font-bold text-gray-500 group-hover:text-blue-600 uppercase tracking-widest">Upload Photo</p>
+                    </div>
+                    <input type="file" className="hidden" accept="image/*" onChange={handleImageChange} />
+                  </label>
+                )}
+              </div>
+              {uploadingImage && (
+                <div className="flex items-center gap-2 text-xs font-bold text-blue-600 animate-pulse">
+                  <Loader2 className="w-3 h-3 animate-spin" />
+                  UPLOADING IMAGE...
+                </div>
+              )}
             </div>
           </div>
 
