@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { FloatingNavbar } from "@/components/ui/FloatingNavbar";
+import { AuthProvider } from "@/context/AuthContext";
+import { Navbar } from "@/components/ui/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,10 +19,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="min-h-screen bg-gray-50 dark:bg-neutral-950 pb-24">
-          {children}
-          <FloatingNavbar />
-        </div>
+        <AuthProvider>
+          <Navbar />
+          <main className="pt-16">
+            {children}
+          </main>
+        </AuthProvider>
       </body>
     </html>
   );
