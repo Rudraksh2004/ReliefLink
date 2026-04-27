@@ -23,6 +23,12 @@ export const Navbar = () => {
 
         <div className="flex items-center gap-6">
           <Link 
+            href="/dashboard" 
+            className="text-sm font-bold text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+          >
+            Analytics
+          </Link>
+          <Link 
             href="/community-needs" 
             className="text-sm font-bold text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
           >

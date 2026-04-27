@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { useFirestoreListener } from "@/hooks/useFirestoreListener";
 import { CommunityNeed, CommunityNeedStatus } from "@/types/communityNeed";
 import { Volunteer } from "@/types/volunteer";
@@ -18,12 +19,15 @@ import {
   Plus,
   RefreshCcw,
   ArrowRight,
-  Filter
+  Filter,
+  MapPin
 } from "lucide-react";
 
 import { BackgroundGlow } from "@/components/ui/BackgroundGlow";
+import { useAuth } from "@/context/AuthContext";
 
 export default function DashboardPage() {
+  const { userProfile } = useAuth();
   const { data: needs, loading: loadingNeeds } = useFirestoreListener<CommunityNeed>("community_needs");
   const { data: volunteers, loading: loadingVolunteers } = useFirestoreListener<Volunteer>("volunteers");
   const { data: assignments, loading: loadingAssignments } = useFirestoreListener<Assignment>("assignments");
@@ -111,10 +115,22 @@ export default function DashboardPage() {
             >
               <RefreshCcw className={`w-5 h-5 ${isRefreshing ? "animate-spin" : ""}`} />
             </button>
-            <button className="flex items-center gap-2 px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold transition-all shadow-lg shadow-blue-500/25 group">
-              <Plus className="w-5 h-5 transition-transform group-hover:rotate-90" />
-              <span>Register Need</span>
-            </button>
+            
+            {(userProfile?.role === "volunteer" || userProfile?.role === "admin") && (
+              <Link href="/map">
+                <button className="flex items-center gap-2 px-5 py-3 bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 rounded-2xl font-bold transition-all shadow-lg hover:bg-neutral-800 dark:hover:bg-neutral-100 group">
+                  <MapPin className="w-5 h-5" />
+                  <span>View Heatmap</span>
+                </button>
+              </Link>
+            )}
+
+            <Link href="/community-needs">
+              <button className="flex items-center gap-2 px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold transition-all shadow-lg shadow-blue-500/25 group">
+                <Plus className="w-5 h-5 transition-transform group-hover:rotate-90" />
+                <span>Register Need</span>
+              </button>
+            </Link>
           </div>
         </header>
 
