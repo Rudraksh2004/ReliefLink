@@ -3,6 +3,7 @@
 import React from "react";
 import dynamic from "next/dynamic";
 import { RoleGuard } from "@/components/auth/RoleGuard";
+import { BackgroundGlow } from "@/components/ui/BackgroundGlow";
 
 // Dynamic import for Map component to avoid SSR issues with Leaflet
 const PriorityHeatmap = dynamic(
