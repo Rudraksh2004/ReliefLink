@@ -18,4 +18,5 @@ export interface Volunteer {
   assignedTaskIds: string[];
   createdAt: Timestamp;
   submittedByRole: "community_user" | "volunteer" | "admin";
+  uid?: string;
 }

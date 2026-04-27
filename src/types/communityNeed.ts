@@ -30,5 +30,6 @@ export interface CommunityNeed {
   updatedAt: Timestamp;
   reporterName?: string;
   reporterPhone?: string;
+  reporterId?: string;
   submittedByRole: "community_user" | "volunteer" | "admin";
 }
