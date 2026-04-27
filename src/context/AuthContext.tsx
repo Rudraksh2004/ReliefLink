@@ -42,11 +42,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           const profile = userDoc.data();
           setUserProfile(profile);
 
-          // Role-based redirection after login/on root
+          // Redirection to Analytics after login/on root
           if (pathname === "/login" || pathname === "/signup" || pathname === "/") {
-            if (profile.role === "community_user") router.push("/community");
-            else if (profile.role === "volunteer") router.push("/volunteer");
-            else if (profile.role === "admin") router.push("/admin");
+            router.push("/dashboard");
           }
 
           // Protected route checks for specific roles
