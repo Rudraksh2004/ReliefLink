@@ -65,6 +65,44 @@ export const CommunityNeedForm = () => {
 
     setDetectingLocation(true);
     setError(null);
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude, longitude } = position.coords;
+        
+        setFormData(prev => ({
+          ...prev,
+          latitude,
+          longitude
+        }));
+
+        try {
+          // Reverse Geocoding using OpenStreetMap Nominatim
+          const response = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+          );
+          const data = await response.json();
+          
+          if (data && data.display_name) {
+            setFormData(prev => ({
+              ...prev,
+              locationName: data.display_name
+            }));
+          }
+        } catch (err) {
+          console.error("Reverse geocoding error:", err);
+          // We still have coordinates, so we don't treat this as a fatal error
+        } finally {
+          setDetectingLocation(false);
+        }
+      },
+      (err) => {
+        console.error("Geolocation error:", err);
+        setError("Location access denied. Please enter coordinates manually.");
+        setDetectingLocation(false);
+      },
+      { enableHighAccuracy: true, timeout: 10000 }
+    );
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -105,45 +143,6 @@ export const CommunityNeedForm = () => {
     } finally {
       setUploadingImage(false);
     }
-  };
-
-    navigator.geolocation.getCurrentPosition(
-      async (position) => {
-        const { latitude, longitude } = position.coords;
-        
-        setFormData(prev => ({
-          ...prev,
-          latitude,
-          longitude
-        }));
-
-        try {
-          // Reverse Geocoding using OpenStreetMap Nominatim
-          const response = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
-          );
-          const data = await response.json();
-          
-          if (data && data.display_name) {
-            setFormData(prev => ({
-              ...prev,
-              locationName: data.display_name
-            }));
-          }
-        } catch (err) {
-          console.error("Reverse geocoding error:", err);
-          // We still have coordinates, so we don't treat this as a fatal error
-        } finally {
-          setDetectingLocation(false);
-        }
-      },
-      (err) => {
-        console.error("Geolocation error:", err);
-        setError("Location access denied. Please enter coordinates manually.");
-        setDetectingLocation(false);
-      },
-      { enableHighAccuracy: true, timeout: 10000 }
-    );
   };
 
   const handleVolunteerMatching = async (needId: string) => {
@@ -349,99 +348,37 @@ export const CommunityNeedForm = () => {
               name="description"
               value={formData.description}
               onChange={handleChange}
-              rows={3}
-              placeholder="Describe the current situation and specific resources required..."
-              className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-neutral-800 bg-transparent focus:ring-2 focus:ring-blue-500 outline-none transition-all resize-none"
+              rows={4}
+              placeholder="Describe the situation in detail..."
+              className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-neutral-800 bg-transparent focus:ring-2 focus:ring-blue-500 outline-none transition-all"
             />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">Category</label>
-              <select
-                name="category"
-                value={formData.category}
-                onChange={handleChange}
-                className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-              >
-                {Object.values(CommunityNeedCategory).map((cat) => (
-                  <option key={cat} value={cat} className="bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white">
-                    {cat.charAt(0).toUpperCase() + cat.slice(1)}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">People Affected</label>
-              <input
-                type="number"
-                name="peopleAffected"
-                value={formData.peopleAffected}
-                onChange={handleChange}
-                className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-neutral-800 bg-transparent focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-              />
-            </div>
-          </div>
-
-          <div className="pt-2">
-            <button
-              type="button"
-              onClick={handleDetectLocation}
-              disabled={detectingLocation}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-wider hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-all disabled:opacity-50"
-            >
-              {detectingLocation ? (
-                <>
-                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                  Detecting location...
-                </>
-              ) : (
-                <>
-                  <MapPin className="w-3.5 h-3.5" />
-                  Use My Current Location
-                </>
-              )}
-            </button>
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1">Location Name</label>
-            <input
-              type="text"
-              name="locationName"
-              value={formData.locationName}
+            <label className="block text-sm font-medium mb-1">Category (Auto-predicted)</label>
+            <select
+              name="category"
+              value={formData.category}
               onChange={handleChange}
-              disabled={detectingLocation}
-              placeholder="e.g., Central District Shelter B"
-              className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-neutral-800 bg-transparent focus:ring-2 focus:ring-blue-500 outline-none transition-all disabled:bg-gray-50 dark:disabled:bg-neutral-800/50"
-            />
+              className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-800 focus:ring-2 focus:ring-blue-500 outline-none transition-all text-neutral-900 dark:text-white"
+            >
+              {Object.values(CommunityNeedCategory).map((cat) => (
+                <option key={cat} value={cat} className="bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white">
+                  {cat}
+                </option>
+              ))}
+            </select>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">Latitude</label>
-              <input
-                type="number"
-                step="any"
-                name="latitude"
-                value={formData.latitude}
-                onChange={handleChange}
-                disabled={detectingLocation}
-                className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-neutral-800 bg-transparent focus:ring-2 focus:ring-blue-500 outline-none transition-all disabled:bg-gray-50 dark:disabled:bg-neutral-800/50"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">Longitude</label>
-              <input
-                type="number"
-                step="any"
-                name="longitude"
-                value={formData.longitude}
-                onChange={handleChange}
-                disabled={detectingLocation}
-                className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-neutral-800 bg-transparent focus:ring-2 focus:ring-blue-500 outline-none transition-all disabled:bg-gray-50 dark:disabled:bg-neutral-800/50"
-              />
-            </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Estimated People Affected</label>
+            <input
+              type="number"
+              name="peopleAffected"
+              value={formData.peopleAffected}
+              onChange={handleChange}
+              className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-neutral-800 bg-transparent focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+            />
           </div>
           
           <div className="pt-4 border-t border-gray-100 dark:border-neutral-800">
@@ -477,6 +414,70 @@ export const CommunityNeedForm = () => {
                   UPLOADING IMAGE...
                 </div>
               )}
+            </div>
+          </div>
+
+          <div className="pt-4 border-t border-gray-100 dark:border-neutral-800">
+            <h3 className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">Location Details</h3>
+            <div className="pt-2">
+              <button
+                type="button"
+                onClick={handleDetectLocation}
+                disabled={detectingLocation}
+                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-wider hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-all disabled:opacity-50"
+              >
+                {detectingLocation ? (
+                  <>
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    Detecting location...
+                  </>
+                ) : (
+                  <>
+                    <MapPin className="w-3.5 h-3.5" />
+                    Use My Current Location
+                  </>
+                )}
+              </button>
+            </div>
+
+            <div className="mt-4">
+              <label className="block text-sm font-medium mb-1">Location Name</label>
+              <input
+                type="text"
+                name="locationName"
+                value={formData.locationName}
+                onChange={handleChange}
+                disabled={detectingLocation}
+                placeholder="e.g., Central District Shelter B"
+                className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-neutral-800 bg-transparent focus:ring-2 focus:ring-blue-500 outline-none transition-all disabled:bg-gray-50 dark:disabled:bg-neutral-800/50"
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              <div>
+                <label className="block text-sm font-medium mb-1">Latitude</label>
+                <input
+                  type="number"
+                  step="any"
+                  name="latitude"
+                  value={formData.latitude}
+                  onChange={handleChange}
+                  disabled={detectingLocation}
+                  className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-neutral-800 bg-transparent focus:ring-2 focus:ring-blue-500 outline-none transition-all disabled:bg-gray-50 dark:disabled:bg-neutral-800/50"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">Longitude</label>
+                <input
+                  type="number"
+                  step="any"
+                  name="longitude"
+                  value={formData.longitude}
+                  onChange={handleChange}
+                  disabled={detectingLocation}
+                  className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-neutral-800 bg-transparent focus:ring-2 focus:ring-blue-500 outline-none transition-all disabled:bg-gray-50 dark:disabled:bg-neutral-800/50"
+                />
+              </div>
             </div>
           </div>
 
