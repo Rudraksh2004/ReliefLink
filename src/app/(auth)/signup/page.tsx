@@ -131,10 +131,10 @@ export default function SignupPage() {
                   name="role"
                   value={formData.role}
                   onChange={handleChange}
-                  className="w-full px-4 py-4 rounded-2xl bg-gray-50 dark:bg-neutral-800 border border-transparent focus:border-blue-500/50 outline-none transition-all font-medium appearance-none"
+                  className="w-full px-4 py-4 rounded-2xl bg-gray-50 dark:bg-neutral-800 border border-transparent focus:border-blue-500/50 outline-none transition-all font-medium appearance-none text-neutral-900 dark:text-white"
                 >
-                  <option value="community_user">Community User (Request Help)</option>
-                  <option value="volunteer">Volunteer (Provide Help)</option>
+                  <option value="community_user" className="bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white">Community User (Request Help)</option>
+                  <option value="volunteer" className="bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white">Volunteer (Provide Help)</option>
                 </select>
               </div>
             </div>

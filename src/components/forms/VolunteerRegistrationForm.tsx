@@ -179,10 +179,10 @@ export const VolunteerRegistrationForm = () => {
               name="availability"
               value={formData.availability}
               onChange={handleChange}
-              className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-neutral-800 bg-transparent focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+              className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all"
             >
               {Object.values(VolunteerAvailability).map((avail) => (
-                <option key={avail} value={avail}>
+                <option key={avail} value={avail} className="bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white">
                   {avail.charAt(0).toUpperCase() + avail.slice(1)}
                 </option>
               ))}
