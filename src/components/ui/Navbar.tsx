@@ -4,13 +4,14 @@ import React from "react";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/Button";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { LogOut, LayoutDashboard, User as UserIcon, ShieldAlert } from "lucide-react";
 
 export const Navbar = () => {
   const { user, userProfile, logout } = useAuth();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/70 dark:bg-neutral-950/70 backdrop-blur-xl border-b border-gray-100 dark:border-neutral-800">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border-b border-gray-100 dark:border-neutral-800">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 group">
           <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white shadow-lg shadow-blue-500/25 transition-transform group-hover:scale-110">
@@ -50,6 +51,8 @@ export const Navbar = () => {
           )}
 
           <div className="h-4 w-[1px] bg-gray-200 dark:bg-neutral-800" />
+          
+          <ThemeToggle />
 
           {user ? (
             <div className="flex items-center gap-4">

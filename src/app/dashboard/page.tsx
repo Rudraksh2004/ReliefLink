@@ -43,7 +43,7 @@ export default function DashboardPage() {
 
   if (loadingNeeds || loadingVolunteers || loadingAssignments) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 dark:bg-neutral-950">
+      <div className="flex flex-col items-center justify-center min-h-screen bg-slate-50 dark:bg-slate-900">
         <div className="relative">
           <div className="w-16 h-16 border-4 border-blue-600/20 border-t-blue-600 rounded-full animate-spin"></div>
           <div className="absolute inset-0 flex items-center justify-center">
@@ -85,7 +85,7 @@ export default function DashboardPage() {
     .slice(0, 8);
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 selection:bg-blue-100 dark:selection:bg-blue-900/30 relative overflow-hidden">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 selection:bg-blue-100 dark:selection:bg-blue-900/30 relative overflow-hidden">
       <BackgroundGlow />
 
       <div className="max-w-[1600px] mx-auto px-6 py-10 space-y-10 relative z-10">
@@ -111,7 +111,7 @@ export default function DashboardPage() {
           <div className="flex items-center gap-3">
             <button 
               onClick={handleRefresh}
-              className="p-3 rounded-2xl bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 text-gray-500 hover:text-blue-600 transition-all hover:shadow-lg shadow-sm"
+              className="p-3 rounded-2xl bg-white dark:bg-slate-800 border border-gray-200 dark:border-neutral-800 text-slate-500 hover:text-blue-600 transition-all hover:shadow-lg shadow-sm"
             >
               <RefreshCcw className={`w-5 h-5 ${isRefreshing ? "animate-spin" : ""}`} />
             </button>
@@ -183,7 +183,7 @@ export default function DashboardPage() {
           {/* Main Visualizations */}
           <div className="xl:col-span-8 space-y-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <section className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl p-8 rounded-[2rem] border border-gray-100 dark:border-neutral-800 shadow-sm hover:shadow-xl hover:shadow-blue-500/5 transition-all">
+              <section className="bg-white dark:bg-slate-800 backdrop-blur-xl p-8 rounded-[2rem] border border-gray-100 dark:border-neutral-800 shadow-sm hover:shadow-xl hover:shadow-blue-500/5 transition-all">
                 <div className="flex items-center justify-between mb-8">
                   <h2 className="text-xl font-black flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-red-50 dark:bg-red-900/20 flex items-center justify-center">
@@ -211,7 +211,7 @@ export default function DashboardPage() {
                 <UrgencyChart needs={filteredNeeds} />
               </section>
 
-              <section className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl p-8 rounded-[2rem] border border-gray-100 dark:border-neutral-800 shadow-sm hover:shadow-xl hover:shadow-blue-500/5 transition-all">
+              <section className="bg-white dark:bg-slate-800 backdrop-blur-xl p-8 rounded-[2rem] border border-gray-100 dark:border-neutral-800 shadow-sm hover:shadow-xl hover:shadow-blue-500/5 transition-all">
                 <div className="flex items-center justify-between mb-8">
                   <h2 className="text-xl font-black flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center">
@@ -230,7 +230,7 @@ export default function DashboardPage() {
             </div>
 
             {/* Assignments Table Section */}
-            <section className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl p-8 rounded-[2.5rem] border border-gray-100 dark:border-neutral-800 shadow-sm overflow-hidden">
+            <section className="bg-white dark:bg-slate-800 backdrop-blur-xl p-8 rounded-[2.5rem] border border-gray-100 dark:border-neutral-800 shadow-sm overflow-hidden">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                 <div>
                   <h2 className="text-2xl font-black">Recent Operations</h2>
@@ -362,7 +362,7 @@ export default function DashboardPage() {
               <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-white/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700"></div>
             </section>
 
-            <section className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl p-8 rounded-[2.5rem] border border-gray-100 dark:border-neutral-800 shadow-sm">
+            <section className="bg-white dark:bg-slate-800 backdrop-blur-xl p-8 rounded-[2.5rem] border border-gray-100 dark:border-neutral-800 shadow-sm">
               <h2 className="text-xl font-black mb-6">Quick Insights</h2>
               <div className="space-y-6">
                 <div className="flex gap-4">

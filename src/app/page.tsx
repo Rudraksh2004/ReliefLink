@@ -17,7 +17,7 @@ import {
 
 export default function LandingPage() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-white dark:bg-neutral-950 selection:bg-blue-100 dark:selection:bg-blue-900/30">
+    <div className="relative min-h-screen overflow-hidden bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 selection:bg-blue-100 dark:selection:bg-blue-900/30">
       <BackgroundGlow />
 
       {/* Hero Section */}
@@ -47,7 +47,7 @@ export default function LandingPage() {
               </Button>
             </Link>
             <Link href="/community-needs">
-              <Button size="lg" variant="outline" className="h-16 px-10 text-lg rounded-2xl font-bold bg-white/50 dark:bg-neutral-900/50 backdrop-blur-xl">
+              <Button size="lg" variant="outline" className="h-16 px-10 text-lg rounded-2xl font-bold bg-white/50 dark:bg-slate-800/50 backdrop-blur-xl">
                 Report a Need
               </Button>
             </Link>
@@ -169,7 +169,7 @@ export default function LandingPage() {
 
 function FeatureCard({ icon, title, description }: { icon: React.ReactNode, title: string, description: string }) {
   return (
-    <div className="p-8 rounded-[2.5rem] bg-white dark:bg-neutral-900 border border-gray-100 dark:border-neutral-800 shadow-sm hover:shadow-xl hover:shadow-blue-500/5 transition-all hover:-translate-y-1 group">
+    <div className="p-8 rounded-[2.5rem] bg-white dark:bg-slate-800 border border-gray-100 dark:border-neutral-800 shadow-sm hover:shadow-xl hover:shadow-blue-500/5 transition-all hover:-translate-y-1 group">
       <div className="w-16 h-16 rounded-2xl bg-gray-50 dark:bg-neutral-800 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
         {icon}
       </div>

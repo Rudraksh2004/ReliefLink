@@ -34,7 +34,7 @@ export const UrgencyChart = ({ needs }: UrgencyChartProps) => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
-        <div className="bg-white dark:bg-neutral-900 p-4 rounded-2xl shadow-xl border border-gray-100 dark:border-neutral-800 backdrop-blur-md">
+        <div className="bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-xl border border-gray-100 dark:border-neutral-800 backdrop-blur-md">
           <p className="text-xs font-black uppercase tracking-widest text-gray-400 mb-1">{data.name} Urgency</p>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full" style={{ backgroundColor: data.color }}></div>
