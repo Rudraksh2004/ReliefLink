@@ -125,11 +125,12 @@ export default function DashboardPage() {
               </Link>
             )}
 
-            <Link href="/community-needs">
-              <button className="flex items-center gap-2 px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold transition-all shadow-lg shadow-blue-500/25 group">
-                <Plus className="w-5 h-5 transition-transform group-hover:rotate-90" />
-                <span>Register Need</span>
-              </button>
+            <Link 
+              href="/community-needs"
+              className="flex items-center gap-2 px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold transition-all shadow-lg shadow-blue-500/25 group"
+            >
+              <Plus className="w-5 h-5 transition-transform group-hover:rotate-90" />
+              <span>Register Need</span>
             </Link>
           </div>
         </header>

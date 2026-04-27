@@ -45,7 +45,7 @@ const initialState: FormState = {
 };
 
 export const CommunityNeedForm = () => {
-  const { user } = useAuth();
+  const { user, userProfile } = useAuth();
   const [formData, setFormData] = useState<FormState>(initialState);
   const [loading, setLoading] = useState(false);
   const [detectingLocation, setDetectingLocation] = useState(false);
@@ -297,6 +297,7 @@ export const CommunityNeedForm = () => {
         urgencyScore: 0,
         status: CommunityNeedStatus.PENDING,
         reporterId: user?.uid || "anonymous",
+        submittedByRole: userProfile?.role || "community_user",
         imageUrl,
       } as any);
 
@@ -326,7 +327,7 @@ export const CommunityNeedForm = () => {
 
   return (
     <div className="bg-white dark:bg-neutral-900 rounded-2xl p-8 border border-gray-100 dark:border-neutral-800 shadow-sm max-w-2xl mx-auto">
-      <h2 className="text-2xl font-bold mb-6">Report Community Need (For Public Users)</h2>
+      <h2 className="text-2xl font-black mb-6">Report Community Need</h2>
       
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="space-y-4">

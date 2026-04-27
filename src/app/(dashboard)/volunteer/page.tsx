@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { useFirestoreListener } from "@/hooks/useFirestoreListener";
 import { Assignment, AssignmentStatus } from "@/types/assignment";
@@ -15,7 +16,8 @@ import {
   User,
   ArrowUpRight,
   ClipboardCheck,
-  Zap
+  Zap,
+  Plus
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 
@@ -53,13 +55,23 @@ export default function VolunteerDashboard() {
       <BackgroundGlow />
       
       <div className="max-w-7xl mx-auto space-y-10 relative z-10">
-        <header className="space-y-2">
-          <div className="flex items-center gap-2 px-3 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-full text-xs font-bold w-fit">
-            <Zap className="w-3 h-3 fill-current" />
-            VOLUNTEER PORTAL
+        <header className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="space-y-2">
+            <div className="flex items-center gap-2 px-3 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-full text-xs font-bold w-fit">
+              <Zap className="w-3 h-3 fill-current" />
+              VOLUNTEER PORTAL
+            </div>
+            <h1 className="text-4xl font-black tracking-tight text-neutral-900 dark:text-white">Active Assignments</h1>
+            <p className="text-gray-500 dark:text-gray-400 font-medium">Manage your assigned tasks and update relief progress.</p>
           </div>
-          <h1 className="text-4xl font-black tracking-tight text-neutral-900 dark:text-white">Active Assignments</h1>
-          <p className="text-gray-500 dark:text-gray-400 font-medium">Manage your assigned tasks and update relief progress.</p>
+
+          <Link 
+            href="/community-needs"
+            className="inline-flex items-center justify-center h-14 px-8 rounded-2xl bg-blue-600 text-white shadow-xl shadow-blue-500/20 font-bold hover:bg-blue-700 transition-all group"
+          >
+            <Plus className="w-5 h-5 mr-2 transition-transform group-hover:rotate-90" />
+            Report New Need
+          </Link>
         </header>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
