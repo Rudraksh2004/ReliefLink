@@ -39,10 +39,18 @@ export const Navbar = () => {
 
           {user ? (
             <div className="flex items-center gap-4">
-              <Link href="/dashboard">
+              <Link href={
+                userProfile?.role === "admin" ? "/admin" : 
+                userProfile?.role === "volunteer" ? "/volunteer" : 
+                "/community"
+              }>
                 <Button variant="outline" className="h-10 px-4 rounded-xl flex items-center gap-2">
                   <LayoutDashboard className="w-4 h-4" />
-                  <span className="hidden sm:inline">Dashboard</span>
+                  <span className="hidden sm:inline">
+                    {userProfile?.role === "admin" ? "Admin Panel" : 
+                     userProfile?.role === "volunteer" ? "Tasks" : 
+                     "My Reports"}
+                  </span>
                 </Button>
               </Link>
               

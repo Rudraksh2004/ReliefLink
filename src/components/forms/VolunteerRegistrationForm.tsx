@@ -6,6 +6,7 @@ import {
 } from "@/types/volunteer";
 import { createVolunteer } from "@/services/volunteerService";
 import { Button } from "@/components/ui/Button";
+import { useAuth } from "@/context/AuthContext";
 
 interface FormState {
   name: string;
@@ -40,6 +41,7 @@ const initialState: FormState = {
 };
 
 export const VolunteerRegistrationForm = () => {
+  const { user } = useAuth();
   const [formData, setFormData] = useState<FormState>(initialState);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -75,7 +77,8 @@ export const VolunteerRegistrationForm = () => {
       const result = await createVolunteer({
         ...formData,
         assignedTaskIds: [],
-      });
+        uid: user?.uid || null,
+      } as any);
 
       setSuccess(true);
       setFormData(initialState);

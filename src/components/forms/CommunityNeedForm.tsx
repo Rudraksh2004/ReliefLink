@@ -16,6 +16,7 @@ import { AssignmentStatus } from "@/types/assignment";
 import { PriorityLevel } from "@/types/regionPriorityScore";
 import { Button } from "@/components/ui/Button";
 import { MapPin, Loader2 } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 
 interface FormState {
   title: string;
@@ -42,6 +43,7 @@ const initialState: FormState = {
 };
 
 export const CommunityNeedForm = () => {
+  const { user } = useAuth();
   const [formData, setFormData] = useState<FormState>(initialState);
   const [loading, setLoading] = useState(false);
   const [detectingLocation, setDetectingLocation] = useState(false);
@@ -241,7 +243,8 @@ export const CommunityNeedForm = () => {
         ...finalData,
         urgencyScore: 0,
         status: CommunityNeedStatus.PENDING,
-      });
+        reporterId: user?.uid || "anonymous",
+      } as any);
 
       setSuccess(true);
       const submittedData = { ...finalData }; // Capture data before reset

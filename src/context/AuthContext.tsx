@@ -39,13 +39,26 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         // Fetch user profile from Firestore to get the role
         const userDoc = await getDoc(doc(db, "users", user.uid));
         if (userDoc.exists()) {
-          setUserProfile(userDoc.data());
+          const profile = userDoc.data();
+          setUserProfile(profile);
+
+          // Role-based redirection after login/on root
+          if (pathname === "/login" || pathname === "/signup" || pathname === "/") {
+            if (profile.role === "community_user") router.push("/community");
+            else if (profile.role === "volunteer") router.push("/volunteer");
+            else if (profile.role === "admin") router.push("/admin");
+          }
+
+          // Protected route checks for specific roles
+          if (pathname.startsWith("/admin") && profile.role !== "admin") router.push("/");
+          if (pathname.startsWith("/volunteer") && profile.role !== "volunteer") router.push("/");
+          if (pathname.startsWith("/community") && profile.role !== "community_user") router.push("/");
         }
       } else {
         setUserProfile(null);
         
-        // Protected routes logic
-        const protectedRoutes = ["/dashboard", "/map"];
+        // Protected routes logic for unauthenticated users
+        const protectedRoutes = ["/dashboard", "/map", "/admin", "/volunteer", "/community"];
         if (protectedRoutes.some(route => pathname.startsWith(route))) {
           router.push("/login");
         }
