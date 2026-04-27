@@ -49,9 +49,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             }
 
             // Protected route checks for specific roles
-            if (pathname.startsWith("/admin") && profile.role !== "admin") router.push("/");
-            if (pathname.startsWith("/volunteer") && profile.role !== "volunteer") router.push("/");
-            if (pathname.startsWith("/community") && profile.role !== "community_user") router.push("/");
+            if (pathname === "/admin" && profile.role !== "admin") router.push("/dashboard");
+            if (pathname === "/volunteer" && profile.role !== "volunteer") router.push("/dashboard");
+            if (pathname === "/community" && profile.role !== "community_user") router.push("/dashboard");
           }
         } catch (error) {
           console.error("Error fetching user profile:", error);
