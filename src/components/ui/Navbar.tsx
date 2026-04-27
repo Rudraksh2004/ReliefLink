@@ -34,12 +34,14 @@ export const Navbar = () => {
           >
             Volunteers
           </Link>
-          <Link 
-            href="/map" 
-            className="text-sm font-bold text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-          >
-            Map
-          </Link>
+          {(userProfile?.role === "volunteer" || userProfile?.role === "admin") && (
+            <Link 
+              href="/map" 
+              className="text-sm font-bold text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >
+              Map
+            </Link>
+          )}
 
           <div className="h-4 w-[1px] bg-gray-200 dark:bg-neutral-800" />
 
