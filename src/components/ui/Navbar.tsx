@@ -47,17 +47,22 @@ export const Navbar = () => {
 
           {user ? (
             <div className="flex items-center gap-4">
-              <Link href={
-                userProfile?.role === "admin" ? "/admin" : 
-                userProfile?.role === "volunteer" ? "/volunteer" : 
-                "/community"
-              }>
+              <Link 
+                href={
+                  !userProfile ? "#" :
+                  userProfile.role === "admin" ? "/admin" : 
+                  userProfile.role === "volunteer" ? "/volunteer" : 
+                  "/community"
+                }
+                className={!userProfile ? "cursor-wait opacity-50" : ""}
+              >
                 <Button variant="outline" className="h-10 px-4 rounded-xl flex items-center gap-2">
                   <LayoutDashboard className="w-4 h-4" />
                   <span className="hidden sm:inline">
-                    {userProfile?.role === "admin" ? "Admin Panel" : 
-                     userProfile?.role === "volunteer" ? "Tasks" : 
-                     "My Reports"}
+                    {!userProfile ? "Loading..." :
+                     userProfile.role === "admin" ? "Admin Dashboard" : 
+                     userProfile.role === "volunteer" ? "Volunteer Dashboard" : 
+                     "User Dashboard"}
                   </span>
                 </Button>
               </Link>
