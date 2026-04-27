@@ -37,16 +37,10 @@ export default function LoginPage() {
       
       if (userDoc.exists()) {
         const userData = userDoc.data();
-        // Redirect based on role
-        if (userData.role === "community_user") {
-          router.push("/community-needs");
-        } else {
-          router.push("/dashboard");
-        }
-      } else {
-        // Default fallback
-        router.push("/dashboard");
       }
+      
+      // Redirect to Analytics Dashboard
+      router.push("/dashboard");
     } catch (err: any) {
       console.error("Login error:", err);
       setError("Invalid email or password. Please try again.");

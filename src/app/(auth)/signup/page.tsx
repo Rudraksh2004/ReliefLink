@@ -43,12 +43,8 @@ export default function SignupPage() {
         createdAt: serverTimestamp(),
       });
 
-      // Redirect based on role
-      if (formData.role === "community_user") {
-        router.push("/community-needs");
-      } else {
-        router.push("/volunteers");
-      }
+      // Redirect to Analytics Dashboard
+      router.push("/dashboard");
     } catch (err: any) {
       console.error("Signup error:", err);
       setError(err.message || "Failed to create account. Please try again.");
