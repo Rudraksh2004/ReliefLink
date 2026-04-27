@@ -11,6 +11,7 @@ const COLLECTION = "community_needs";
 
 export const createCommunityNeed = async (needData: Omit<CommunityNeed, "id" | "createdAt" | "updatedAt">) => {
   return await addDocument(COLLECTION, {
+    submittedByRole: "community_user",
     ...needData,
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),

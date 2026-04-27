@@ -12,6 +12,7 @@ const COLLECTION = "volunteers";
 export const createVolunteer = async (volunteerData: Omit<Volunteer, "id" | "createdAt">) => {
   return await addDocument(COLLECTION, {
     ...volunteerData,
+    submittedByRole: "volunteer",
     createdAt: serverTimestamp(),
   });
 };

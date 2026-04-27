@@ -29,6 +29,7 @@ export default function DashboardPage() {
   const { data: assignments, loading: loadingAssignments } = useFirestoreListener<Assignment>("assignments");
   
   const [searchQuery, setSearchQuery] = useState("");
+  const [roleFilter, setRoleFilter] = useState<"all" | "community_user" | "volunteer">("all");
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const handleRefresh = () => {
@@ -57,6 +58,12 @@ export default function DashboardPage() {
   const resolvedNeeds = needs.filter(n => n.status === CommunityNeedStatus.RESOLVED).length;
   const pendingNeeds = needs.filter(n => n.status === CommunityNeedStatus.PENDING).length;
   const matchedNeeds = needs.filter(n => n.status === CommunityNeedStatus.MATCHED).length;
+  const publicNeeds = needs.filter(n => n.submittedByRole === "community_user").length;
+  const volunteerNeeds = needs.filter(n => n.submittedByRole === "volunteer").length;
+
+  const filteredNeeds = roleFilter === "all" 
+    ? needs 
+    : needs.filter(n => n.submittedByRole === roleFilter);
 
   // Filtered Assignments
   const filteredAssignments = assignments
@@ -122,6 +129,14 @@ export default function DashboardPage() {
             trend={{ value: 12, isUp: true }}
           />
           <StatCard 
+            title="Public Reports" 
+            value={publicNeeds} 
+            icon={<ClipboardList className="w-5 h-5" />} 
+            description="Submitted by community members"
+            color="orange"
+            trend={{ value: Math.round((publicNeeds / (totalNeeds || 1)) * 100), isUp: true }}
+          />
+          <StatCard 
             title="Responders" 
             value={totalVolunteers} 
             icon={<Users className="w-5 h-5" />} 
@@ -161,7 +176,22 @@ export default function DashboardPage() {
                   </h2>
                   <div className="text-xs font-bold text-gray-400 uppercase tracking-widest">AI Scoring Distribution</div>
                 </div>
-                <UrgencyChart needs={needs} />
+                <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
+                  {(['all', 'community_user', 'volunteer'] as const).map((role) => (
+                    <button
+                      key={role}
+                      onClick={() => setRoleFilter(role)}
+                      className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap ${
+                        roleFilter === role
+                          ? "bg-blue-600 text-white shadow-lg shadow-blue-500/25"
+                          : "bg-gray-100 dark:bg-neutral-800 text-gray-500 hover:bg-gray-200 dark:hover:bg-neutral-700"
+                      }`}
+                    >
+                      {role === 'all' ? 'All Sources' : role === 'community_user' ? 'Public' : 'Volunteers'}
+                    </button>
+                  ))}
+                </div>
+                <UrgencyChart needs={filteredNeeds} />
               </section>
 
               <section className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl p-8 rounded-[2rem] border border-gray-100 dark:border-neutral-800 shadow-sm hover:shadow-xl hover:shadow-blue-500/5 transition-all">
@@ -174,7 +204,11 @@ export default function DashboardPage() {
                   </h2>
                   <div className="text-xs font-bold text-gray-400 uppercase tracking-widest">Resource Allocation</div>
                 </div>
-                <CategoryDistributionChart needs={needs} />
+                <div className="flex gap-2 mb-6 overflow-x-auto pb-2 invisible">
+                  {/* Invisible spacer to match height of Urgency Analysis filter row if needed, or just remove if layout works */}
+                  <div className="px-4 py-2 text-xs font-bold uppercase tracking-wider h-8"></div>
+                </div>
+                <CategoryDistributionChart needs={filteredNeeds} />
               </section>
             </div>
 

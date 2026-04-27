@@ -24,6 +24,8 @@ interface FormState {
   locationName: string;
   latitude: number;
   longitude: number;
+  reporterName?: string;
+  reporterPhone?: string;
 }
 
 const initialState: FormState = {
@@ -34,6 +36,8 @@ const initialState: FormState = {
   locationName: "",
   latitude: 0,
   longitude: 0,
+  reporterName: "",
+  reporterPhone: "",
 };
 
 export const CommunityNeedForm = () => {
@@ -213,7 +217,7 @@ export const CommunityNeedForm = () => {
 
   return (
     <div className="bg-white dark:bg-neutral-900 rounded-2xl p-8 border border-gray-100 dark:border-neutral-800 shadow-sm max-w-2xl mx-auto">
-      <h2 className="text-2xl font-bold mb-6">Submit Community Need</h2>
+      <h2 className="text-2xl font-bold mb-6">Report Community Need (For Public Users)</h2>
       
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="space-y-4">
@@ -305,6 +309,37 @@ export const CommunityNeedForm = () => {
               />
             </div>
           </div>
+
+          <div className="pt-4 border-t border-gray-100 dark:border-neutral-800">
+            <h3 className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">Reporter Information (Optional)</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium mb-1">Reporter Name</label>
+                <input
+                  type="text"
+                  name="reporterName"
+                  value={formData.reporterName}
+                  onChange={handleChange}
+                  placeholder="Your Name"
+                  className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-neutral-800 bg-transparent focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">Reporter Phone</label>
+                <input
+                  type="tel"
+                  name="reporterPhone"
+                  value={formData.reporterPhone}
+                  onChange={handleChange}
+                  placeholder="Your Phone Number"
+                  className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-neutral-800 bg-transparent focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                />
+              </div>
+            </div>
+            <p className="mt-2 text-xs text-gray-500 font-medium">
+              Optional: Provide contact details so volunteers can reach you.
+            </p>
+          </div>
         </div>
 
         {error && (
@@ -324,7 +359,7 @@ export const CommunityNeedForm = () => {
           disabled={loading}
           className="w-full py-6 text-lg shadow-blue-500/20 hover:shadow-blue-500/40 transition-all active:scale-[0.98]"
         >
-          {loading ? "Submitting..." : "Submit Community Need"}
+          {loading ? "Submitting..." : "Report Community Need"}
         </Button>
       </form>
     </div>

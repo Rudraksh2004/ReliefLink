@@ -28,4 +28,7 @@ export interface CommunityNeed {
   status: CommunityNeedStatus;
   createdAt: Timestamp;
   updatedAt: Timestamp;
+  reporterName?: string;
+  reporterPhone?: string;
+  submittedByRole: "community_user" | "volunteer" | "admin";
 }
