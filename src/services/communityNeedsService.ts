@@ -9,10 +9,11 @@ import { serverTimestamp, QueryConstraint } from "firebase/firestore";
 
 const COLLECTION = "community_needs";
 
-export const createCommunityNeed = async (needData: Omit<CommunityNeed, "id" | "createdAt" | "updatedAt">) => {
+export const createCommunityNeed = async (needData: Omit<CommunityNeed, "id" | "createdAt" | "updatedAt" | "submittedByRole"> & { submittedByRole?: CommunityNeed["submittedByRole"] }) => {
+  const { submittedByRole = "community_user", ...rest } = needData;
   return await addDocument(COLLECTION, {
-    submittedByRole: "community_user",
-    ...needData,
+    ...rest,
+    submittedByRole,
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
   });

@@ -9,10 +9,11 @@ import { serverTimestamp, QueryConstraint } from "firebase/firestore";
 
 const COLLECTION = "volunteers";
 
-export const createVolunteer = async (volunteerData: Omit<Volunteer, "id" | "createdAt">) => {
+export const createVolunteer = async (volunteerData: Omit<Volunteer, "id" | "createdAt" | "submittedByRole"> & { submittedByRole?: Volunteer["submittedByRole"] }) => {
+  const { submittedByRole = "volunteer", ...rest } = volunteerData;
   return await addDocument(COLLECTION, {
-    ...volunteerData,
-    submittedByRole: "volunteer",
+    ...rest,
+    submittedByRole,
     createdAt: serverTimestamp(),
   });
 };
