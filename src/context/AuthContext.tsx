@@ -36,21 +36,25 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setUser(user);
       
       if (user) {
-        // Fetch user profile from Firestore to get the role
-        const userDoc = await getDoc(doc(db, "users", user.uid));
-        if (userDoc.exists()) {
-          const profile = userDoc.data();
-          setUserProfile(profile);
+        try {
+          // Fetch user profile from Firestore to get the role
+          const userDoc = await getDoc(doc(db, "users", user.uid));
+          if (userDoc.exists()) {
+            const profile = userDoc.data();
+            setUserProfile(profile);
 
-          // Redirection to Analytics after login/on root
-          if (pathname === "/login" || pathname === "/signup" || pathname === "/") {
-            router.push("/dashboard");
+            // Redirection to Analytics after login/on root
+            if (pathname === "/login" || pathname === "/signup" || pathname === "/") {
+              router.push("/dashboard");
+            }
+
+            // Protected route checks for specific roles
+            if (pathname.startsWith("/admin") && profile.role !== "admin") router.push("/");
+            if (pathname.startsWith("/volunteer") && profile.role !== "volunteer") router.push("/");
+            if (pathname.startsWith("/community") && profile.role !== "community_user") router.push("/");
           }
-
-          // Protected route checks for specific roles
-          if (pathname.startsWith("/admin") && profile.role !== "admin") router.push("/");
-          if (pathname.startsWith("/volunteer") && profile.role !== "volunteer") router.push("/");
-          if (pathname.startsWith("/community") && profile.role !== "community_user") router.push("/");
+        } catch (error) {
+          console.error("Error fetching user profile:", error);
         }
       } else {
         setUserProfile(null);

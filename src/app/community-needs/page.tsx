@@ -14,7 +14,7 @@ export default function CommunityNeedsPage() {
         <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
             <h1 className="text-4xl font-black tracking-tight bg-gradient-to-br from-neutral-900 to-neutral-500 dark:from-white dark:to-neutral-500 bg-clip-text text-transparent">
-              Report Community Need (For Public Users)
+              Report Community Need
             </h1>
             <p className="text-gray-500 dark:text-gray-400 mt-2 text-lg font-medium">Track and manage resource requests from the field in real-time.</p>
           </div>
