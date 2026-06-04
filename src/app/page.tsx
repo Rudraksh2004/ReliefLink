@@ -291,7 +291,7 @@ export default function LandingPage() {
                     </div>
 
                     {/* Dashboard metrics preview */}
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 min-[400px]:grid-cols-2 gap-4">
                       
                       {/* Urgency Meter */}
                       <div className="p-5 rounded-2xl bg-gradient-to-br from-rose-500/10 to-orange-500/5 border border-rose-500/20 flex flex-col justify-between min-h-[120px]">

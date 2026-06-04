@@ -34,9 +34,9 @@ export default function MapPage() {
                 Real-time visualization of resource scarcity and regional urgency scores across coordinated zones.
               </p>
             </div>
-            <div className="flex gap-2 p-2 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl rounded-[1.5rem] border border-gray-100 dark:border-neutral-800 shadow-sm h-fit">
-               <div className="px-4 py-2 text-[10px] font-black uppercase tracking-widest text-gray-400 border-r border-gray-100 dark:border-neutral-800">Legend</div>
-               <div className="flex items-center gap-6 px-4 py-2">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-1 sm:gap-2 p-2 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl rounded-[1.5rem] border border-gray-100 dark:border-neutral-800 shadow-sm h-fit w-full sm:w-auto">
+               <div className="px-4 py-1.5 sm:py-2 text-[10px] font-black uppercase tracking-widest text-gray-400 border-b sm:border-b-0 sm:border-r border-gray-100 dark:border-neutral-800 text-center sm:text-left">Legend</div>
+               <div className="flex items-center justify-around sm:justify-start gap-4 sm:gap-6 px-4 py-2">
                   <div className="flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-full bg-red-600 shadow-lg shadow-red-500/40"></span>
                     <span className="text-[10px] font-black uppercase tracking-wider text-gray-500">Critical</span>
