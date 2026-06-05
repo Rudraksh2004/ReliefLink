@@ -4,6 +4,7 @@ import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { Navbar } from "@/components/ui/Navbar";
+import { Footer } from "@/components/ui/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,6 +27,7 @@ export default function RootLayout({
             <main className="pt-16 min-h-screen">
               {children}
             </main>
+            <Footer />
           </AuthProvider>
         </ThemeProvider>
       </body>

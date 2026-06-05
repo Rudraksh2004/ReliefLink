@@ -449,24 +449,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-20 px-6 border-t border-slate-200/50 dark:border-neutral-900/80 relative z-10 bg-slate-50/50 dark:bg-slate-900/50 backdrop-blur-xl">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 bg-blue-600 rounded-xl flex items-center justify-center text-[11px] text-white font-black shadow-md shadow-blue-500/20">RL</div>
-            <span className="font-black tracking-tight text-lg">ReliefLink</span>
-          </div>
-          <div className="flex gap-8 text-xs font-black text-slate-400 uppercase tracking-widest">
-            <a href="#" className="hover:text-blue-500 transition-colors">Platform</a>
-            <a href="#" className="hover:text-blue-500 transition-colors">Resources</a>
-            <a href="#" className="hover:text-blue-500 transition-colors">About</a>
-            <a href="#" className="hover:text-blue-500 transition-colors">Contact</a>
-          </div>
-          <div className="text-xs text-slate-400 font-bold">
-            © 2026 ReliefLink Emergency Operations. All rights reserved.
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
