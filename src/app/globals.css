@@ -1,48 +1,48 @@
 @import "tailwindcss";
 
 :root {
-  /* Premium Light Theme: Soft Lavender / Slate-indigo & Warm Accents */
-  --background: hsl(250 60% 98.5%);
-  --foreground: hsl(250 40% 12%);
+  /* Premium Light Theme: Refined Slate Blue / Sapphire Indigo & Deep Slate Contrast */
+  --background: hsl(210 40% 98%);
+  --foreground: hsl(222 47% 11.2%);
 
-  /* Tailwind Redefinitions for Slate (Soft Lavender-Indigo) */
-  --slate-50: hsl(250 60% 98.5%);
-  --slate-100: hsl(250 45% 95%);
-  --slate-200: hsl(250 30% 91%);
-  --slate-300: hsl(250 22% 84%);
-  --slate-400: hsl(250 16% 68%);
-  --slate-500: hsl(250 12% 50%);
-  --slate-600: hsl(250 10% 41%);
-  --slate-700: hsl(250 12% 31%);
-  --slate-800: hsl(250 14% 20%);
-  --slate-900: hsl(250 16% 12%);
-  --slate-950: hsl(250 18% 7%);
+  /* Tailwind Redefinitions for Slate (Clean Cool Slate) */
+  --slate-50: hsl(210 40% 98%);
+  --slate-100: hsl(210 40% 96.2%);
+  --slate-200: hsl(214 32% 91.4%);
+  --slate-300: hsl(213 27% 83.9%);
+  --slate-400: hsl(215 20% 65.1%);
+  --slate-500: hsl(215 16% 46.9%);
+  --slate-600: hsl(215 19% 34.5%);
+  --slate-700: hsl(215 25% 26.7%);
+  --slate-800: hsl(215 32% 18.4%);
+  --slate-900: hsl(222 47% 11.2%);
+  --slate-950: hsl(222 84% 4.9%);
 
-  /* Tailwind Redefinitions for Neutral (Soft Muted Slate) */
-  --neutral-50: hsl(250 40% 98%);
-  --neutral-100: hsl(250 30% 95%);
-  --neutral-200: hsl(250 20% 90%);
-  --neutral-300: hsl(250 15% 82%);
-  --neutral-400: hsl(250 12% 64%);
-  --neutral-500: hsl(250 10% 48%);
-  --neutral-600: hsl(250 8% 38%);
-  --neutral-700: hsl(250 10% 28%);
-  --neutral-800: hsl(250 12% 18%);
-  --neutral-900: hsl(250 14% 11%);
-  --neutral-950: hsl(250 16% 6%);
+  /* Tailwind Redefinitions for Neutral (Crisp Pure Gray) */
+  --neutral-50: hsl(0 0% 98.5%);
+  --neutral-100: hsl(0 0% 96%);
+  --neutral-200: hsl(0 0% 90%);
+  --neutral-300: hsl(0 0% 83%);
+  --neutral-400: hsl(0 0% 64%);
+  --neutral-500: hsl(0 0% 45%);
+  --neutral-600: hsl(0 0% 35%);
+  --neutral-700: hsl(0 0% 25%);
+  --neutral-800: hsl(0 0% 15%);
+  --neutral-900: hsl(0 0% 9%);
+  --neutral-950: hsl(0 0% 4%);
 
-  /* Primary Blue/Indigo Hue shifted slightly towards purple for light theme */
-  --blue-50: hsl(230 100% 97%);
-  --blue-100: hsl(230 100% 93%);
-  --blue-200: hsl(230 100% 86%);
-  --blue-300: hsl(230 100% 77%);
-  --blue-400: hsl(230 100% 66%);
-  --blue-500: hsl(230 95% 58%);
-  --blue-600: hsl(230 85% 50%);
-  --blue-700: hsl(230 85% 42%);
-  --blue-800: hsl(230 85% 34%);
-  --blue-900: hsl(230 80% 25%);
-  --blue-950: hsl(230 80% 15%);
+  /* Primary Accent: Sophisticated Royal Sapphire Blue */
+  --blue-50: hsl(221 83% 95.7%);
+  --blue-100: hsl(221 83% 92%);
+  --blue-200: hsl(221 83% 86%);
+  --blue-300: hsl(221 83% 77%);
+  --blue-400: hsl(221 83% 66%);
+  --blue-500: hsl(221 83% 53.3%);
+  --blue-600: hsl(221 83% 45%);
+  --blue-700: hsl(221 83% 38%);
+  --blue-800: hsl(221 83% 30%);
+  --blue-900: hsl(221 83% 22%);
+  --blue-950: hsl(221 83% 12%);
 }
 
 .dark {
