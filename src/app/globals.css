@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   /* Premium Light Theme: Refined Slate Blue / Sapphire Indigo & Deep Slate Contrast */
   --background: hsl(210 40% 98%);
@@ -91,8 +93,6 @@
 }
 
 @theme {
-  --variant-dark: .dark &;
-
   --color-slate-50: var(--slate-50);
   --color-slate-100: var(--slate-100);
   --color-slate-200: var(--slate-200);
