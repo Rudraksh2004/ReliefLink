@@ -55,7 +55,7 @@ export default function CommunityUserDashboard() {
           </Link>
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="p-8 rounded-[2.5rem] bg-white dark:bg-neutral-900 border border-gray-100 dark:border-neutral-800 shadow-sm">
             <h3 className="text-gray-400 text-[10px] font-black uppercase tracking-widest mb-1">Active Requests</h3>
             <p className="text-4xl font-black">{myNeeds.filter(n => n.status !== CommunityNeedStatus.RESOLVED).length}</p>

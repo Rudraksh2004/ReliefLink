@@ -77,7 +77,7 @@ export default function AdminDashboard() {
           </div>
         </header>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           <StatCard title="Total Needs" value={totalNeeds} icon={<AlertTriangle />} color="orange" description="Global requests" />
           <StatCard title="Active Volunteers" value={totalVolunteers} icon={<Users />} color="blue" description="Verified responders" />
           <StatCard title="Ongoing Tasks" value={totalAssignments} icon={<Activity />} color="green" description="Active deployments" />
